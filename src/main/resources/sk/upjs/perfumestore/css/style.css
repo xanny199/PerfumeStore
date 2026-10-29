@@ -1,0 +1,70 @@
+
+/* PerfumeStore — Global dark theme */
+
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #0B0F17;
+}
+
+/* Brand title */
+.brand-title {
+    -fx-text-fill: #F4F7FF;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+/* Login heading */
+.login-title {
+    -fx-text-fill: #F7FAFF;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* Input fields */
+.login-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #7C8BA3;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-padding: 12px;
+}
+
+.login-field:focused {
+    -fx-border-color: #3B91FF;
+    -fx-border-width: 2px;
+}
+
+/* Login button */
+.login-button {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #4296FF;
+}
+
+.login-button:pressed {
+    -fx-background-color: #155CB5;
+}
+
+/* Register Link */
+.register-link {
+    -fx-text-fill: #60A5FA;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+    -fx-cursor: hand;
+}
+
+.register-link:hover {
+    -fx-text-fill: #93C5FD;
+    -fx-underline: true;
+}
