@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="600.0" stylesheets="@../css/style.css" vgap="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" percentWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints fillHeight="false" valignment="BOTTOM" vgrow="ALWAYS" />
+            <RowConstraints fillHeight="false" minHeight="10.0" valignment="BOTTOM" vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+            <VBox spacing="45.0">
+               <children>
+                  <Label alignment="TOP_LEFT" text="Perfume Store">
+                     <font>
+                        <Font />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="brand-title" />
+                        <String fx:value="brand-title" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" spacing="18.0" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="page-title" text="Log in">
+                     <font>
+                        <Font />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your email">
+                     <styleClass>
+                        <String fx:value="login-field" />
+                        <String fx:value="input-field" />
+                     </styleClass>
+                  </TextField>
+                  <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your password" styleClass="input-field">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </PasswordField>
+               </children>
+            </VBox>
+            <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="44.0" prefWidth="150.0" styleClass="primary-button" text="Sign in" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="8.0" GridPane.rowIndex="3">
+               <children>
+                  <Label styleClass="text-secondary" text="Don't have an account?" textFill="#9ca9bc" />
+                  <Hyperlink styleClass="app-link" text="Create account" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </GridPane>
+   </content>
+</ScrollPane>

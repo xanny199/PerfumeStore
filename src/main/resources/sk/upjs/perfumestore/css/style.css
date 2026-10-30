@@ -1,70 +1,261 @@
 
-/* PerfumeStore — Global dark theme */
+/* ===================================
+   PerfumeStore - Global Dark Theme
+   =================================== */
 
+/* Main application background */
 .root {
     -fx-font-family: "Segoe UI";
     -fx-background-color: #0B0F17;
 }
 
-/* Brand title */
+/* ScrollPane — Dark Theme */
+
+.scroll-pane {
+    -fx-background-color: #0B0F17;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #0B0F17;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: #0B0F17;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #3B91FF;
+}
+
+/* Text */
 .brand-title {
     -fx-text-fill: #F4F7FF;
     -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
 
-/* Login heading */
-.login-title {
+.page-title {
     -fx-text-fill: #F7FAFF;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
 }
 
-/* Input fields */
-.login-field {
+.text-secondary {
+    -fx-text-fill: #93A1B8;
+    -fx-font-size: 13px;
+}
+
+/* Form fields */
+.input-field {
     -fx-background-color: #171E2C;
     -fx-text-fill: #FFFFFF;
     -fx-prompt-text-fill: #7C8BA3;
     -fx-border-color: #304058;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
     -fx-font-size: 14px;
-    -fx-padding: 12px;
+    -fx-padding: 12;
 }
 
-.login-field:focused {
+.input-field:focused {
     -fx-border-color: #3B91FF;
-    -fx-border-width: 2px;
+    -fx-border-width: 2;
 }
 
-/* Login button */
-.login-button {
+/* Buttons */
+.primary-button {
     -fx-background-color: #247BEB;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8px;
+    -fx-background-radius: 8;
     -fx-cursor: hand;
 }
 
-.login-button:hover {
+.primary-button:hover {
     -fx-background-color: #4296FF;
 }
 
-.login-button:pressed {
+.primary-button:pressed {
     -fx-background-color: #155CB5;
 }
 
-/* Register Link */
-.register-link {
+/* Hyperlinks */
+.app-link {
     -fx-text-fill: #60A5FA;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-border-color: transparent;
     -fx-underline: false;
     -fx-cursor: hand;
 }
 
-.register-link:hover {
+.app-link:hover {
     -fx-text-fill: #93C5FD;
     -fx-underline: true;
+}
+
+/* Form containers */
+.form-container {
+    -fx-spacing: 18;
+    -fx-padding: 30;
+}
+
+/* Secondary buttons */
+.secondary-button {
+    -fx-background-color: #202B3D;
+    -fx-text-fill: #E5EAF2;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #304058;
+}
+
+
+/* ===================================
+   MAIN LAYOUT - PerfumeStore
+   =================================== */
+
+/* Main application */
+.main-layout {
+    -fx-background-color: #0B0F17;
+}
+
+/* Top header */
+.app-header {
+    -fx-background-color: #111827;
+    -fx-border-color: #253147;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Sidebar */
+.app-sidebar {
+    -fx-background-color: #101827;
+    -fx-border-color: #253147;
+    -fx-border-width: 0 1 0 0;
+}
+
+/* Sidebar navigation buttons */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #AAB8CE;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 12 16 12 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #1C2D46;
+    -fx-text-fill: #FFFFFF;
+}
+
+.nav-button:pressed {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Currently selected page */
+.nav-button-active {
+    -fx-background-color: #1E406D;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #3B91FF;
+    -fx-border-width: 0 0 0 3;
+}
+
+/* Main content */
+.content-area {
+    -fx-background-color: #0B0F17;
+}
+
+/* ScrollPane */
+.app-scroll {
+    -fx-background-color: #0B0F17;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
+.app-scroll > .viewport {
+    -fx-background-color: #0B0F17;
+}
+
+/* Scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: #0B0F17;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #3B91FF;
+}
+
+
+/* Sidebar ScrollPane */
+.sidebar-scroll {
+    -fx-background-color: #101827;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent #253147 transparent transparent;
+}
+
+.sidebar-scroll > .viewport {
+    -fx-background-color: #101827;
+}
+
+/* Combox */
+.filter-combo {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+}
+
+.filter-combo > .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E5EAF2;
+}
+
+.filter-combo .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+.filter-combo .combo-box-popup .list-view {
+    -fx-background-color: #171E2C;
+}
+
+.filter-combo .combo-box-popup .list-cell {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #E5EAF2;
+}
+
+.filter-combo .combo-box-popup .list-cell:hover {
+    -fx-background-color: #247BEB;
+}
+
+/* Product Card */
+.product-card {
+    -fx-background-color: #171E2C;
+    -fx-background-radius: 12;
+    -fx-border-color: #304058;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+/* Product Card Image */
+.product-image-container {
+    -fx-background-color: #26354B;
+    -fx-background-radius: 8;
 }
