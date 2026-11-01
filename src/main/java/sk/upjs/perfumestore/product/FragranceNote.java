@@ -5,6 +5,6 @@ import lombok.With;
 
 @With
 public record FragranceNote(
-        Integer id,
+        Long id,
         String name
 ) {}

@@ -47,7 +47,7 @@ public class JdbcFragranceNoteDAO implements FragranceNoteDAO {
         }, keyHolder);
         Number key = (Number) keyHolder.getKeys().get("id");
 
-        return note.withId(key.intValue());
+        return note.withId(key.longValue());
     }
 
     @Override
