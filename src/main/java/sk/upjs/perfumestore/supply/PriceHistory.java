@@ -1,4 +1,4 @@
-package sk.upjs.supply;
+package sk.upjs.perfumestore.supply;
 
 import lombok.With;
 import java.math.BigDecimal;

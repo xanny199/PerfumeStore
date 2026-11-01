@@ -1,4 +1,4 @@
-package sk.upjs.product;
+package sk.upjs.perfumestore.product;
 
 
 import lombok.With;

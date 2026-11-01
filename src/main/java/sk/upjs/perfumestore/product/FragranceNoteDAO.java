@@ -1,4 +1,4 @@
-package sk.upjs.product;
+package sk.upjs.perfumestore.product;
 
 import java.util.List;
 import java.util.Optional;

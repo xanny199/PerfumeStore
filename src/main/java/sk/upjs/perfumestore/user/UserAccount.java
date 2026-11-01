@@ -1,4 +1,4 @@
-package sk.upjs.user;
+package sk.upjs.perfumestore.user;
 
 import lombok.With;
 
