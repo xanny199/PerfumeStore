@@ -124,11 +124,6 @@
    MAIN LAYOUT - PerfumeStore
    =================================== */
 
-/* Main application */
-.main-layout {
-    -fx-background-color: #0B0F17;
-}
-
 /* Top header */
 .app-header {
     -fx-background-color: #111827;
@@ -291,4 +286,44 @@
     -fx-text-fill: #60A5FA;
     -fx-font-size: 17px;
     -fx-font-weight: bold;
+}
+
+
+/* ===================================
+   MY ACCOUNT
+   =================================== */
+
+.account-section {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 16;
+}
+
+.account-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.account-root .section-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.account-root .input-field {
+    -fx-background-color: #101827;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #7187A8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+}
+
+.account-root .input-field:focused {
+    -fx-border-color: #247BEB;
 }

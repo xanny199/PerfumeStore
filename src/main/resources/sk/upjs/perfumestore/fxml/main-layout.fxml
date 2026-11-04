@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1100.0" styleClass="main-layout" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox prefHeight="70.0" spacing="15.0" styleClass="app-header" BorderPane.alignment="CENTER_LEFT">
@@ -49,7 +48,7 @@
    <center>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" styleClass="app-scroll" BorderPane.alignment="CENTER">
          <content>
-            <StackPane fx:id="contentPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="content-area">
+            <StackPane fx:id="contentPane" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="content-area">
                <children>
                   <Label text="Welcome to PerfumeStore" />
                </children>
