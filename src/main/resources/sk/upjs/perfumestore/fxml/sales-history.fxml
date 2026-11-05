@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0" spacing="18.0" styleClass="sales-root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label styleClass="page-title" text="Sales History" />
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
+         <children>
+            <TextField fx:id="saleSearchField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Search sale ID..." styleClass="input-field" HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="dateFilterComboBox" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" promptText="All dates" styleClass="filter-combo" />
+         </children>
+      </HBox>
+      <TableView fx:id="salesTable" maxWidth="1.7976931348623157E308" minHeight="180.0" minWidth="0.0" prefHeight="350.0" VBox.vgrow="NEVER">
+        <columns>
+          <TableColumn fx:id="saleIdColumn" prefWidth="75.0" text="Sale ID" />
+          <TableColumn fx:id="saleDateColumn" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="cashierColumn" prefWidth="75.0" text="Cashier" />
+            <TableColumn fx:id="detailsColumn" prefWidth="75.0" text="Details" />
+            <TableColumn fx:id="saleTotalColumn" prefWidth="75.0" text="Total" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

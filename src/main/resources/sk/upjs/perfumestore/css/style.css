@@ -172,7 +172,10 @@
     -fx-background-color: #0B0F17;
 }
 
-/* ScrollPane */
+/* ===================================
+   SCROLLPANE
+   =================================== */
+
 .app-scroll {
     -fx-background-color: #0B0F17;
     -fx-background-insets: 0;
@@ -183,7 +186,10 @@
     -fx-background-color: #0B0F17;
 }
 
-/* Scrollbar */
+/* ===================================
+   SCROLLBAR
+   =================================== */
+
 .scroll-bar:vertical {
     -fx-background-color: #0B0F17;
 }
@@ -197,8 +203,10 @@
     -fx-background-color: #3B91FF;
 }
 
+/* ===================================
+   SIDEBAR SCROLL
+   =================================== */
 
-/* Sidebar ScrollPane */
 .sidebar-scroll {
     -fx-background-color: #101827;
     -fx-background-insets: 0;
@@ -209,7 +217,10 @@
     -fx-background-color: #101827;
 }
 
-/* Combox */
+/* ===================================
+   COMBOX
+   =================================== */
+
 .filter-combo {
     -fx-background-color: #171E2C;
     -fx-border-color: #304058;
@@ -240,7 +251,10 @@
     -fx-background-color: #247BEB;
 }
 
-/* Product Card */
+/* ===================================
+   PRODUCT CARD
+   =================================== */
+
 .product-card {
     -fx-background-color: #171E2C;
     -fx-background-radius: 12;
@@ -255,7 +269,10 @@
     -fx-background-radius: 8;
 }
 
-/* Cart Checkout */
+/* ===================================
+   CART CHECKOUT
+   =================================== */
+
 .checkout-section {
     -fx-background-color: #171E2C;
     -fx-background-radius: 12;
@@ -326,4 +343,387 @@
 
 .account-root .input-field:focused {
     -fx-border-color: #247BEB;
+}
+
+
+/* =========================================
+   MY ORDERS
+   ========================================= */
+
+/* Table */
+.orders-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 0;
+}
+
+/* Table header */
+.orders-root .table-view .column-header-background {
+    -fx-background-color: #202B3D;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.orders-root .table-view .column-header {
+    -fx-background-color: #202B3D;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.orders-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Empty space after last column */
+.orders-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+/* Table rows */
+.orders-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.orders-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.orders-root .table-row-cell:empty,
+.orders-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+/* Selected row */
+.orders-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+/* Table cells */
+.orders-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 12;
+}
+
+/* Empty table message */
+.orders-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.orders-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+    -fx-font-size: 14px;
+}
+
+/* Scrollbar */
+.orders-root .table-view .scroll-bar:vertical,
+.orders-root .table-view .scroll-bar:horizontal {
+    -fx-background-color: #171E2C;
+}
+
+.orders-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.orders-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+.orders-root .table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #426080;
+}
+
+/* Table corner */
+.orders-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+/* Status filter */
+.orders-root .combo-box {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.orders-root .combo-box:focused {
+    -fx-border-color: #247BEB;
+}
+
+.orders-root .combo-box .list-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-background-color: transparent;
+}
+
+.orders-root .combo-box .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+/* Filter dropdown */
+.orders-root .combo-box-popup .list-view {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+}
+
+.orders-root .combo-box-popup .list-cell {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+}
+
+.orders-root .combo-box-popup .list-cell:hover,
+.orders-root .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+}
+
+
+/* =========================================
+   CASH REGISTER
+   ========================================= */
+
+.cash-root {
+    -fx-background-color: #0B0F17;
+}
+
+.cash-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.cash-root .table-view .column-header-background,
+.cash-root .table-view .column-header,
+.cash-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.cash-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.cash-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.cash-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.cash-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.cash-root .table-row-cell:empty,
+.cash-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.cash-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.cash-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 12;
+}
+
+.cash-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.cash-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+.cash-root .table-view .scroll-bar:vertical,
+.cash-root .table-view .scroll-bar:horizontal,
+.cash-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.cash-total {
+    -fx-text-fill: #60A5FA;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.cash-root .secondary-button {
+    -fx-background-color: #243247;
+    -fx-text-fill: #F8FAFC;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.cash-root .secondary-button:hover {
+    -fx-background-color: #304058;
+}
+
+
+/* =========================================
+   SALES HISTORY
+   ========================================= */
+
+.sales-root {
+    -fx-background-color: #0B0F17;
+}
+
+.sales-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.sales-root .input-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #93A1B8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.sales-root .input-field:focused {
+    -fx-border-color: #247BEB;
+}
+
+/* TableView */
+.sales-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+/* Headers */
+.sales-root .table-view .column-header-background,
+.sales-root .table-view .column-header,
+.sales-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.sales-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.sales-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Rows */
+.sales-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.sales-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.sales-root .table-row-cell:empty,
+.sales-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.sales-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.sales-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 12;
+}
+
+/* Empty table */
+.sales-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.sales-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+/* Scrollbars */
+.sales-root .table-view .scroll-bar:vertical,
+.sales-root .table-view .scroll-bar:horizontal,
+.sales-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.sales-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.sales-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+/* Date filter */
+.sales-root .combo-box {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.sales-root .combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F8FAFC;
+}
+
+.sales-root .combo-box .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+.sales-root .combo-box-popup .list-view {
+    -fx-background-color: #171E2C;
+}
+
+.sales-root .combo-box-popup .list-cell {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+}
+
+.sales-root .combo-box-popup .list-cell:hover,
+.sales-root .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #247BEB;
 }
