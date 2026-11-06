@@ -727,3 +727,694 @@
 .sales-root .combo-box-popup .list-cell:filled:selected {
     -fx-background-color: #247BEB;
 }
+
+/* =========================================
+   ORDER MANAGEMENT
+   ========================================= */
+
+.order-management-root {
+    -fx-background-color: #0B0F17;
+}
+
+.order-management-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.order-section {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.order-management-root .muted-label {
+    -fx-text-fill: #93A1B8;
+    -fx-font-size: 13px;
+}
+
+.order-management-root .input-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #93A1B8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.order-management-root .input-field:focused {
+    -fx-border-color: #247BEB;
+}
+
+/* Table */
+.order-management-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.order-management-root .table-view .column-header-background,
+.order-management-root .table-view .column-header,
+.order-management-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.order-management-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.order-management-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.order-management-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.order-management-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.order-management-root .table-row-cell:empty,
+.order-management-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.order-management-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.order-management-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-border-color: transparent;
+    -fx-padding: 8 12;
+}
+
+.order-management-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.order-management-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+/* ComboBox */
+.order-management-root .combo-box {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.order-management-root .combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F8FAFC;
+}
+
+.order-management-root .combo-box .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+.order-management-root .combo-box:focused {
+    -fx-border-color: #247BEB;
+}
+
+/* Update button */
+.order-management-root .primary-button {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.order-management-root .primary-button:hover {
+    -fx-background-color: #1D65C4;
+}
+
+/* =========================================
+   PRODUCT MANAGEMENT
+   ========================================= */
+
+.product-management-root {
+    -fx-background-color: #0B0F17;
+}
+
+.product-management-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.product-management-root .input-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #93A1B8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.product-management-root .input-field:focused {
+    -fx-border-color: #247BEB;
+}
+
+/* Add button */
+.product-management-root .primary-button {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.product-management-root .primary-button:hover {
+    -fx-background-color: #1D65C4;
+}
+
+/* Table */
+.product-management-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.product-management-root .table-view .column-header-background,
+.product-management-root .table-view .column-header,
+.product-management-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.product-management-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.product-management-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.product-management-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.product-management-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.product-management-root .table-row-cell:empty,
+.product-management-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.product-management-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.product-management-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+}
+
+.product-management-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.product-management-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+/* Scrollbars */
+.product-management-root .table-view .scroll-bar:vertical,
+.product-management-root .table-view .scroll-bar:horizontal,
+.product-management-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.product-management-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.product-management-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+/* =========================================
+   STOCK MANAGEMENT
+   ========================================= */
+
+.stock-root {
+    -fx-background-color: #0B0F17;
+}
+
+.stock-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.stock-root .input-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #93A1B8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.stock-root .input-field:focused {
+    -fx-border-color: #247BEB;
+}
+
+.stock-root .primary-button {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.stock-root .primary-button:hover {
+    -fx-background-color: #1D65C4;
+}
+
+/* TableView */
+.stock-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.stock-root .table-view .column-header-background,
+.stock-root .table-view .column-header,
+.stock-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.stock-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.stock-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stock-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.stock-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.stock-root .table-row-cell:empty,
+.stock-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.stock-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.stock-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+}
+
+.stock-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.stock-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+/* Scrollbars */
+.stock-root .table-view .scroll-bar:vertical,
+.stock-root .table-view .scroll-bar:horizontal,
+.stock-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.stock-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.stock-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+/* =========================================
+   EMPLOYEE MANAGEMENT
+   ========================================= */
+
+.employee-root {
+    -fx-background-color: #0B0F17;
+}
+
+.employee-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.employee-root .input-field {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #93A1B8;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.employee-root .input-field:focused {
+    -fx-border-color: #247BEB;
+}
+
+/* Add Cashier Button */
+.employee-root .primary-button {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.employee-root .primary-button:hover {
+    -fx-background-color: #1D65C4;
+}
+
+/* TableView */
+.employee-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.employee-root .table-view .column-header-background,
+.employee-root .table-view .column-header,
+.employee-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.employee-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 42;
+}
+
+.employee-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.employee-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 44;
+}
+
+.employee-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.employee-root .table-row-cell:empty,
+.employee-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+.employee-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+.employee-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+}
+
+.employee-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.employee-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+}
+
+/* Scrollbars */
+.employee-root .table-view .scroll-bar:vertical,
+.employee-root .table-view .scroll-bar:horizontal,
+.employee-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.employee-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.employee-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+
+/* =========================================
+   STATISTICS
+   ========================================= */
+
+/* Main page */
+.statistics-root {
+    -fx-background-color: #0B0F17;
+    -fx-padding: 20;
+    -fx-spacing: 18;
+}
+
+/* Page title */
+.statistics-root .page-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* Section titles */
+.statistics-root .section-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+/* =========================================
+   SUMMARY CARDS
+   ========================================= */
+
+.statistics-root .stat-card {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 16;
+    -fx-spacing: 8;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Card labels */
+.statistics-root .stat-label {
+    -fx-text-fill: #93A1B8;
+    -fx-font-size: 13px;
+}
+
+/* Card values */
+.statistics-root .stat-value {
+    -fx-text-fill: #60A5FA;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* =========================================
+   TABLES
+   ========================================= */
+
+.statistics-root .table-view {
+    -fx-background-color: #171E2C;
+    -fx-control-inner-background: #171E2C;
+    -fx-control-inner-background-alt: #1B2535;
+    -fx-border-color: #304058;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+/* Table headers */
+.statistics-root .table-view .column-header-background,
+.statistics-root .table-view .column-header,
+.statistics-root .table-view .filler {
+    -fx-background-color: #202B3D;
+}
+
+.statistics-root .table-view .column-header {
+    -fx-border-color: #304058;
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 40;
+}
+
+.statistics-root .table-view .column-header .label {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Table rows */
+.statistics-root .table-row-cell {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 42;
+}
+
+.statistics-root .table-row-cell:odd {
+    -fx-background-color: #1B2535;
+}
+
+.statistics-root .table-row-cell:empty,
+.statistics-root .table-row-cell:empty:odd {
+    -fx-background-color: #171E2C;
+    -fx-border-color: transparent;
+}
+
+/* Selected row */
+.statistics-root .table-row-cell:selected {
+    -fx-background-color: #1D4E89;
+}
+
+/* Table cells */
+.statistics-root .table-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+}
+
+/* Empty table message */
+.statistics-root .table-view .placeholder {
+    -fx-background-color: #171E2C;
+}
+
+.statistics-root .table-view .placeholder .label {
+    -fx-text-fill: #93A1B8;
+    -fx-font-size: 13px;
+}
+
+/* Scrollbars */
+.statistics-root .table-view .scroll-bar:vertical,
+.statistics-root .table-view .scroll-bar:horizontal,
+.statistics-root .table-view .corner {
+    -fx-background-color: #171E2C;
+}
+
+.statistics-root .table-view .scroll-bar .track {
+    -fx-background-color: #171E2C;
+}
+
+.statistics-root .table-view .scroll-bar .thumb {
+    -fx-background-color: #304058;
+    -fx-background-radius: 6;
+}
+
+.statistics-root .table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #426080;
+}
+
+/* =========================================
+   PERIOD FILTER
+   ========================================= */
+
+.statistics-root .combo-box {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.statistics-root .combo-box:focused {
+    -fx-border-color: #247BEB;
+}
+
+.statistics-root .combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F8FAFC;
+}
+
+.statistics-root .combo-box .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+/* Dropdown menu */
+.statistics-root .combo-box-popup .list-view {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+}
+
+.statistics-root .combo-box-popup .list-cell {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+}
+
+.statistics-root .combo-box-popup .list-cell:hover,
+.statistics-root .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+}
