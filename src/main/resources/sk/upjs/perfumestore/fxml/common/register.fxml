@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="800.0" stylesheets="@../css/style.css">
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="800.0" stylesheets="@../../css/style.css">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="100.0" />
         </columnConstraints>
