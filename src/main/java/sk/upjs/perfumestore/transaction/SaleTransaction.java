@@ -4,6 +4,7 @@ package sk.upjs.perfumestore.transaction;
 import lombok.With;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @With
 public record SaleTransaction(
@@ -14,7 +15,8 @@ public record SaleTransaction(
         Long deliveryAddressId,
         OffsetDateTime createdAt,
         OrderStatus status,
-        BigDecimal totalPrice
+        BigDecimal totalPrice,
+        List<TransactionItem> items
 ) {
     public enum TransactionType{
         ONLINE_ORDER,
