@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="600.0" spacing="14.0" styleClass="supply-edit-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label styleClass="page-title" text="Add Supply" />
+      <Label styleClass="field-label" text="Product" />
+      <ComboBox fx:id="productComboBox" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Select product..." styleClass="filter-combo" />
+      <GridPane hgap="15.0" maxWidth="1.7976931348623157E308" minWidth="0.0" vgap="8.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+          <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Supplier Name" />
+            <Label text="Quantity Added" GridPane.columnIndex="1" />
+            <Label text="Supply Date" GridPane.rowIndex="2" />
+            <Label text="Purchase Price (€)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="supplierNameField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Supplier Name" styleClass="input-field" GridPane.rowIndex="1" />
+            <TextField fx:id="quantityField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Quantity" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="purchasePriceField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Purchase Price" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="supplyDatePicker" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Supply Date" GridPane.rowIndex="3">
+               <styleClass>
+                  <String fx:value="date-picker" />
+                  <String fx:value="date-picker-popup" />
+               </styleClass>
+            </DatePicker>
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
+         <children>
+            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" styleClass="secondary-button" text="Cancel" />
+            <Button fx:id="saveSupplyButton" mnemonicParsing="false" prefHeight="40.0" styleClass="primary-button" text="Save Supply" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+   </padding>
+</VBox>
