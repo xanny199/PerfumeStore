@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS "user_account" (
     "last_name" VARCHAR(100) NOT NULL,
     "phone" VARCHAR(25),
     "role" USER_ROLE NOT NULL,
+    "is_active" BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY("id")
     );
 

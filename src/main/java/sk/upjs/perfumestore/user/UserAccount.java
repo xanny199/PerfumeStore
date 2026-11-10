@@ -8,9 +8,10 @@ public record UserAccount(
         String email,
         String passwordHash,
         String firstName,
-        String secondName,
+        String lastName,
         String phone,
-        Role role
+        Role role,
+        Boolean isActive
 ) {
     public enum Role {
         CLIENT,
