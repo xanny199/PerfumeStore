@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.LoginController">
    <content>
       <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="600.0" stylesheets="@../../css/style.css" vgap="20.0">
         <columnConstraints>
@@ -55,20 +54,20 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your email">
+                  <TextField fx:id="loginEmailTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your email">
                      <styleClass>
                         <String fx:value="login-field" />
                         <String fx:value="input-field" />
                      </styleClass>
                   </TextField>
-                  <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your password" styleClass="input-field">
+                  <PasswordField fx:id="loginPasswordTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="520.0" promptText="Enter your password" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </PasswordField>
                </children>
             </VBox>
-            <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="44.0" prefWidth="150.0" styleClass="primary-button" text="Sign in" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+            <Button fx:id="signInButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#signInButtonOnAction" prefHeight="44.0" prefWidth="150.0" styleClass="primary-button" text="Sign in" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -79,7 +78,7 @@
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="8.0" GridPane.rowIndex="3">
                <children>
                   <Label styleClass="text-secondary" text="Don't have an account?" textFill="#9ca9bc" />
-                  <Hyperlink styleClass="app-link" text="Create account" />
+                  <Hyperlink fx:id="createAccountHyperLink" onAction="#createAccountHyperLinkOnAction" styleClass="app-link" text="Create account" />
                </children>
             </HBox>
          </children>

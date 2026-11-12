@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class JdbcDeliveryAddressDao implements DeliveryAddressDao {
+public class JdbcDeliveryAddressDAO implements DeliveryAddressDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -28,7 +28,7 @@ public class JdbcDeliveryAddressDao implements DeliveryAddressDao {
         }
     };
 
-    public JdbcDeliveryAddressDao(JdbcTemplate jdbcTemplate) {
+    public JdbcDeliveryAddressDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

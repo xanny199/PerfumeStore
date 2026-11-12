@@ -3,7 +3,7 @@ package sk.upjs.perfumestore.user;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserAccountDao {
+public interface UserAccountDAO {
     Optional<UserAccount> findById(Long id);
 
     Optional<UserAccount> findByEmail(String email);

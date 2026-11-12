@@ -3,7 +3,7 @@ package sk.upjs.perfumestore.user;
 import java.util.List;
 import java.util.Optional;
 
-public interface DeliveryAddressDao {
+public interface DeliveryAddressDAO {
     List<DeliveryAddress> findAll();
 
     Optional<DeliveryAddress> findById(Long id);

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class JdbcUserAccountDao implements UserAccountDao {
+public class JdbcUserAccountDAO implements UserAccountDAO {
 
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<UserAccount> rowMapper = new RowMapper<UserAccount>() {
@@ -29,7 +29,7 @@ public class JdbcUserAccountDao implements UserAccountDao {
         }
     };
 
-    public JdbcUserAccountDao(JdbcTemplate jdbcTemplate) {
+    public JdbcUserAccountDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -213,7 +213,7 @@ public class JdbcUserAccountDao implements UserAccountDao {
             return ps;
         }, keyHolder);
 
-        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        Long id = ((Number) Objects.requireNonNull(keyHolder.getKeys()).get("id")).longValue();
         return this.findById(id).orElseThrow();
     }
 
