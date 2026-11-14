@@ -132,6 +132,13 @@ public class JdbcProductDAO implements ProductDAO {
 
     @Override
     public Product save(Product product) {
+        if(product == null) {
+            throw new NullPointerException("Product cannot be null");
+        }
+        if(product.id() != null){
+            throw new NullPointerException("New product cannot already have an ID");
+        }
+
         String sql = "INSERT INTO product(name,brand,category_type,target_audience,description,volume_ml,price,release_year,current_stock,is_available) VALUES (?,?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -163,6 +170,9 @@ public class JdbcProductDAO implements ProductDAO {
 
     @Override
     public Boolean deleteById(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("id must be greater than zero");
+        }
         String deleteNoteSql = "DELETE FROM product_note WHERE product_id = ?";
         jdbcTemplate.update(deleteNoteSql, id);
 
@@ -174,6 +184,9 @@ public class JdbcProductDAO implements ProductDAO {
 
     @Override
     public List<Product> findByNote(FragranceNote note) {
+        if(note == null) {
+            throw new NullPointerException("note is null");
+        }
         String sql = """
                 SELECT 
                  p.id AS product_id,

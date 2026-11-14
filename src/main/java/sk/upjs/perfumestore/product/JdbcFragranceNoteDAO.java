@@ -27,7 +27,10 @@ public class JdbcFragranceNoteDAO implements FragranceNoteDAO {
     }
 
     @Override
-    public Optional<FragranceNote> findById(int id) {
+    public Optional<FragranceNote> findById(Long id) {
+        if(id == null || id <= 0){
+            throw new IllegalArgumentException("id must be greater than zero");
+        }
         String sql = "SELECT id,name FROM fragrance_note WHERE id = ?";
         List<FragranceNote> fragranceNotes = jdbcTemplate.query(sql, rowMapper, id);
         if (fragranceNotes.isEmpty()) {
@@ -38,6 +41,12 @@ public class JdbcFragranceNoteDAO implements FragranceNoteDAO {
 
     @Override
     public FragranceNote save(FragranceNote note) {
+        if(note == null){
+            throw new IllegalArgumentException("note cannot be null");
+        }
+        if(note.id() != null){
+            throw new IllegalArgumentException("New note cannot already have an ID");
+        }
         String sql = "INSERT INTO fragrance_note (name) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection ->{
@@ -51,7 +60,10 @@ public class JdbcFragranceNoteDAO implements FragranceNoteDAO {
     }
 
     @Override
-    public Boolean deleteById(int id) {
+    public Boolean deleteById(Long id) {
+        if(id == null || id <= 0){
+            throw new IllegalArgumentException("id must be greater than zero");
+        }
         String sql = "DELETE FROM fragrance_note WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
         return rowsAffected > 0;

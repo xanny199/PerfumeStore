@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.OffsetDateTime;
@@ -21,6 +22,15 @@ public class JdbcPriceHistoryDAO implements PriceHistoryDAO {
 
     @Override
     public PriceHistory save(PriceHistory priceHistory) {
+        if(priceHistory == null){
+            throw new IllegalArgumentException("priceHistory cannot be null");
+        }
+        if(priceHistory.id() != null){
+            throw new IllegalArgumentException("New record cannot already have an ID");
+        }
+        if(priceHistory.newPrice().compareTo(BigDecimal.ZERO) <= 0 || priceHistory.oldPrice().compareTo(BigDecimal.ZERO) <= 0){
+            throw new IllegalArgumentException("Price of product must be greater than zero");
+        }
         String sql = "INSERT INTO price_history(product_id,old_price,new_price,changed_at) VALUES(?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -49,6 +59,9 @@ public class JdbcPriceHistoryDAO implements PriceHistoryDAO {
 
     @Override
     public List<PriceHistory> findByProductId(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                         SELECT id,product_id,old_price,new_price,changed_at
                          FROM price_history
@@ -60,6 +73,9 @@ public class JdbcPriceHistoryDAO implements PriceHistoryDAO {
 
     @Override
     public List<PriceHistory> findByProductIdAndDateRange(Long id, OffsetDateTime start, OffsetDateTime end) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 SELECT id,product_id,old_price,new_price,changed_at
                 FROM price_history
@@ -85,6 +101,9 @@ public class JdbcPriceHistoryDAO implements PriceHistoryDAO {
 
     @Override
     public boolean deleteById(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 DELETE FROM price_history
                 WHERE id = ?

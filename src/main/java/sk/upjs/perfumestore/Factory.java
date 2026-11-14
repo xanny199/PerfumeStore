@@ -36,8 +36,8 @@ public enum Factory {
         }
 
         var dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(System.getProperty("DB_URL", "jdbc:postgresql://localhost:5433/perfumestore"));
-        dataSource.setUser(System.getProperty("DB_USER", "postgres"));
+        dataSource.setUrl(System.getProperty("DB_URL","jdbc:postgresql://localhost:5433/perfumestore"));
+        dataSource.setUser(System.getProperty("DB_USER"));
         dataSource.setPassword(System.getProperty("DB_PASSWORD"));
 
         jdbcTemplate = new JdbcTemplate(dataSource);

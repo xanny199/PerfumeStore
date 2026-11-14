@@ -8,9 +8,9 @@ public interface FragranceNoteDAO {
 
     List<FragranceNote> findAll();
 
-    Optional<FragranceNote> findById(int id);
+    Optional<FragranceNote> findById(Long id);
 
     FragranceNote save(FragranceNote note);
 
-    Boolean deleteById(int id);
+    Boolean deleteById(Long id);
 }

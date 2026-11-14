@@ -44,4 +44,30 @@ public class UserAccountService {
 
         return user;
     }
+
+    public UserAccount register(String firstName, String lastName, String email, String phone ,String password) {
+        if(firstName == null || firstName.isBlank()) {
+            throw new IllegalArgumentException("First name cannot be empty");
+        }
+        if(lastName == null || lastName.isBlank()) {
+            throw new IllegalArgumentException("Last name cannot be empty");
+        }
+        if(email == null || email.isBlank()) {
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        if(phone == null || phone.isBlank()) {
+            throw new IllegalArgumentException("Phone cannot be empty");
+        }
+        if (password == null || password.length() < 8) {
+            throw new BadRequestException("Password must be at least 8 characters long");
+        }
+        if(userAccountDao.existsByEmail(email)) {
+            throw new BadRequestException("User with this email already exists");
+        }
+        String passwordHash = argon2.hash(10,65536,1,password.toCharArray());
+
+        UserAccount newUser = new UserAccount(null,email,passwordHash,firstName,lastName,phone,UserAccount.Role.CLIENT,true);
+
+        return userAccountDao.create(newUser);
+    }
 }
