@@ -16,8 +16,8 @@
          <children>
             <Label styleClass="brand-title" text="Perfume Store" />
             <Region maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="40.0" styleClass="secondary-button" text="Profile" />
-            <Button mnemonicParsing="false" prefHeight="40.0" styleClass="secondary-button" text="Logout" />
+            <Button fx:id="profileButton" mnemonicParsing="false" onAction="#profileButtonOnAction" prefHeight="40.0" styleClass="secondary-button" text="Profile" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonOnAction" prefHeight="40.0" styleClass="secondary-button" text="Logout" />
          </children>
          <padding>
             <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
@@ -25,9 +25,9 @@
       </HBox>
    </top>
    <left>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" pannable="true" prefWidth="215.0" styleClass="sidebar-scroll" BorderPane.alignment="TOP_CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" minWidth="0.0" pannable="true" styleClass="sidebar-scroll" BorderPane.alignment="TOP_CENTER">
          <content>
-            <VBox minWidth="-Infinity" spacing="10.0" styleClass="app-sidebar">
+            <VBox spacing="10.0" styleClass="app-sidebar">
                <children>
                   <Button fx:id="productsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#productsButtonOnAction" prefHeight="42.0" styleClass="nav-button" text="Products" />
                   <Button fx:id="cartButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cartButtonOnAction" prefHeight="42.0" styleClass="nav-button" text="Cart" />

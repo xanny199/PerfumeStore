@@ -40,6 +40,7 @@ public class LoginController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Register Account");
+        stage.centerOnScreen();
     }
 
     @FXML
@@ -61,6 +62,16 @@ public class LoginController {
 
             Stage stage = (Stage) signInButton.getScene().getWindow();
             var loaderFroMainLayout = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/main-layout.fxml"));
+
+            loaderFroMainLayout.setControllerFactory(controllerClass -> {
+                if (controllerClass == MainLayoutController.class) {
+                    return new MainLayoutController(userAccountService);
+                }
+                throw new IllegalArgumentException(
+                        "Unknown controller: " + controllerClass
+                );
+            });
+
             Parent root = loaderFroMainLayout.load();
 
             MainLayoutController controller = loaderFroMainLayout.getController();
@@ -68,6 +79,7 @@ public class LoginController {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.setTitle("PerfumeStore");
 
         } catch (BadRequestException e) {
