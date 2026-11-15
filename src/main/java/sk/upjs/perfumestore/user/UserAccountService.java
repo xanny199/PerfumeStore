@@ -56,7 +56,7 @@ public class UserAccountService {
             throw new IllegalArgumentException("Email cannot be empty");
         }
         if(phone == null || phone.isBlank()) {
-            throw new IllegalArgumentException("Phone cannot be empty");
+            phone = null;
         }
         if (password == null || password.length() < 8) {
             throw new BadRequestException("Password must be at least 8 characters long");

@@ -72,10 +72,24 @@ public class RegisterController {
 
             Stage stage = (Stage) emailField.getScene().getWindow();
             var loader = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/main-layout.fxml"));
+
+            loader.setControllerFactory(controllerClass -> {
+                if (controllerClass == MainLayoutController.class) {
+                    return new MainLayoutController(userAccountService);
+                }
+                throw new IllegalArgumentException(
+                        "Unknown controller: " + controllerClass
+                );
+            });
+
             Parent root = loader.load();
+
+            MainLayoutController controller = loader.getController();
+            controller.setCurrentUserAccount(user);
 
             stage.setScene(new Scene(root));
             stage.setTitle("PerfumeStore");
+            stage.centerOnScreen();
         }catch(BadRequestException e){
             showAlert("Registration failed",e.getMessage());
         }catch(IOException e){
@@ -97,6 +111,7 @@ public class RegisterController {
         Parent root = loaderForLogin.load();
         stage.setScene(new Scene(root));
         stage.setTitle("PerfumeStore");
+        stage.centerOnScreen();
     }
 
 }
