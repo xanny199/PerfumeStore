@@ -19,6 +19,9 @@ public class PerfumeStoreApp extends Application {
             if (controllerClass == LoginController.class) {
                 return new LoginController(service);
             }
+            if (controllerClass == RegisterController.class) {
+                return new RegisterController(service);
+            }
             throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass
             );

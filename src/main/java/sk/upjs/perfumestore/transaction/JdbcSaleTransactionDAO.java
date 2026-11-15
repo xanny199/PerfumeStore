@@ -56,6 +56,15 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public SaleTransaction save(SaleTransaction saleTransaction) {
+        if (saleTransaction == null) {
+            throw new IllegalArgumentException("SaleTransaction cannot be null");
+        }
+        if (saleTransaction.id() != null) {
+            throw new IllegalArgumentException("New transaction cannot already have an ID");
+        }
+        if (saleTransaction.items() == null || saleTransaction.items().isEmpty()) {
+            throw new IllegalArgumentException("Cannot save a transaction without items");
+        }
         String sql = "INSERT INTO sale_transaction(customer_id,employee_id,transaction_type,delivery_address_id,status,total_price) VALUES(?,?,?::transaction_type, ?, ?::order_status, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -114,6 +123,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public SaleTransaction findById(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 SELECT 
                  t.id AS t_id,
@@ -140,6 +152,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public List<SaleTransaction> findByCustomerId(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 SELECT 
                  t.id AS t_id,
@@ -164,6 +179,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public List<SaleTransaction> findByEmployeeId(Long id) {
+        if(id == null || id <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 SELECT 
                  t.id AS t_id,
@@ -188,6 +206,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public List<SaleTransaction> findByStatus(SaleTransaction.OrderStatus status) {
+        if(status==null){
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         String sql = """
                 SELECT 
                  t.id AS t_id,
@@ -236,6 +257,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public List<SaleTransaction> findByEmployeeIdAndDates(Long employeeId, OffsetDateTime start, OffsetDateTime end) {
+        if(employeeId == null || employeeId <= 0) {
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
         String sql = """
                 SELECT 
                  t.id AS t_id,
@@ -260,6 +284,12 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
 
     @Override
     public boolean changeStatus(Long id, SaleTransaction.OrderStatus status) {
+        if(id==null || id <= 0){
+            throw new IllegalArgumentException("ID must be strictly positive");
+        }
+        if(status==null){
+            throw new IllegalArgumentException("Status cannot be null");
+        }
         String sql = "UPDATE sale_transaction SET status = ?::order_status WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, status.name(), id);
         return rowsAffected > 0;

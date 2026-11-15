@@ -36,6 +36,13 @@ public class LoginController {
     void createAccountHyperLinkOnAction(ActionEvent event) throws IOException {
         Stage stage = (Stage) createAccountHyperLink.getScene().getWindow();
         var loaderForRegistration = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/register.fxml"));
+
+        loaderForRegistration.setControllerFactory(controllerClass ->{
+            if (controllerClass == RegisterController.class){
+                return new RegisterController(userAccountService);
+            }
+            throw new IllegalArgumentException("unknown controller: " + controllerClass);
+        });
         Parent root = loaderForRegistration.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -61,9 +68,9 @@ public class LoginController {
             UserAccount user = userAccountService.login(loginEmail, loginPassword);
 
             Stage stage = (Stage) signInButton.getScene().getWindow();
-            var loaderFroMainLayout = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/main-layout.fxml"));
+            var loaderForMainLayout = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/main-layout.fxml"));
 
-            loaderFroMainLayout.setControllerFactory(controllerClass -> {
+            loaderForMainLayout.setControllerFactory(controllerClass -> {
                 if (controllerClass == MainLayoutController.class) {
                     return new MainLayoutController(userAccountService);
                 }
@@ -72,9 +79,9 @@ public class LoginController {
                 );
             });
 
-            Parent root = loaderFroMainLayout.load();
+            Parent root = loaderForMainLayout.load();
 
-            MainLayoutController controller = loaderFroMainLayout.getController();
+            MainLayoutController controller = loaderForMainLayout.getController();
             controller.setCurrentUserAccount(user);
 
             Scene scene = new Scene(root);

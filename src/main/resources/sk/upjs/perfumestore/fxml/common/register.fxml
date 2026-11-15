@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.RegisterController">
    <content>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="800.0" stylesheets="@../../css/style.css">
         <columnConstraints>
@@ -36,32 +36,32 @@
             </VBox>
             <VBox spacing="15.0" GridPane.rowIndex="1">
                <children>
-                  <TextField promptText="First name" styleClass="input-field">
+                  <TextField fx:id="firstNameField" promptText="First name" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Last name" styleClass="input-field">
+                  <TextField fx:id="lastNameField" promptText="Last name" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Email" styleClass="input-field">
+                  <TextField fx:id="emailField" promptText="Email" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Phone" styleClass="input-field">
+                  <TextField fx:id="phoneField" promptText="Phone" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField promptText="Password" styleClass="input-field">
+                  <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </PasswordField>
-                  <PasswordField promptText="Confirm password" styleClass="input-field">
+                  <PasswordField fx:id="confirmPasswordField" promptText="Confirm password" styleClass="input-field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -73,12 +73,12 @@
             </VBox>
             <VBox alignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <children>
-                  <Button mnemonicParsing="false" styleClass="primary-button" text="Create account">
+                  <Button mnemonicParsing="false" onAction="#createAccountAction" styleClass="primary-button" text="Create account">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Hyperlink styleClass="app-link" text="Back to login" />
+                  <Hyperlink styleClass="app-link" onAction="#backToLoginAction" text="Back to login" />
                </children>
             </VBox>
          </children>

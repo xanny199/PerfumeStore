@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -22,6 +23,15 @@ public class JdbcStockSupplyDAO implements StockSupplyDAO {
 
     @Override
     public StockSupply save(StockSupply stockSupply) {
+        if(stockSupply == null){
+            throw new IllegalArgumentException("StockSupply cannot be null");
+        }
+        if(stockSupply.id() != null){
+            throw new IllegalArgumentException("New record cannot already have an ID");
+        }
+        if(stockSupply.quantityAdded() <= 0){
+            throw new IllegalArgumentException("QuantityAdded cannot be less than 0");
+        }
         String sql = "INSERT INTO stock_supply(product_id,supplier_name,quantity_added,supply_date,purchase_price) VALUES(?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
