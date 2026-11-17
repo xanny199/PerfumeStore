@@ -1,4 +1,4 @@
-package sk.upjs.perfumestore;
+package sk.upjs.perfumestore.exception;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message) {

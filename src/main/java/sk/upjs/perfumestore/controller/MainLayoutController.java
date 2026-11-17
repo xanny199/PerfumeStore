@@ -1,15 +1,14 @@
-package sk.upjs.perfumestore;
+package sk.upjs.perfumestore.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.user.UserAccount;
-import sk.upjs.perfumestore.user.UserAccountService;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -49,10 +48,10 @@ public class MainLayoutController {
     @FXML
     private Button logoutButton;
 
-    private final UserAccountService userAccountService;
+    private final SceneManager sceneManager;
 
-    public MainLayoutController(UserAccountService userAccountService) {
-        this.userAccountService = userAccountService;
+    public MainLayoutController(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     private UserAccount currentUserAccount;
@@ -140,22 +139,7 @@ public class MainLayoutController {
     @FXML
     void logoutButtonOnAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-
-        var loaderForLogin = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/login.fxml"));
-
-        loaderForLogin.setControllerFactory(controllerClass -> {
-            if (controllerClass == LoginController.class) {
-                return new LoginController(userAccountService);
-            } throw new IllegalArgumentException(
-                    "Unknown controller: " + controllerClass
-            );
-        });
-
-        Parent root = loaderForLogin.load();
-        Scene scene = new Scene(root);
-        currentStage.setScene(scene);
-        currentStage.setTitle("Perfume Store");
-        currentStage.centerOnScreen();
+        sceneManager.showLogin(currentStage);
     }
 
     private void setButtonVisibility(Button button, boolean visible) {

@@ -1,16 +1,13 @@
-package sk.upjs.perfumestore;
+package sk.upjs.perfumestore.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sk.upjs.perfumestore.exception.BadRequestException;
+import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.user.UserAccount;
 import sk.upjs.perfumestore.user.UserAccountService;
-
-
 
 
 import java.io.IOException;
@@ -36,9 +33,10 @@ public class RegisterController {
 
     private final UserAccountService userAccountService;
 
-
-    public RegisterController(UserAccountService userAccountService) {
+    private final SceneManager sceneManager;
+    public RegisterController(UserAccountService userAccountService, SceneManager sceneManager) {
         this.userAccountService = userAccountService;
+        this.sceneManager = sceneManager;
     }
 
     private void showAlert(String header, String message) {
@@ -71,25 +69,9 @@ public class RegisterController {
             UserAccount user = userAccountService.register(firstName,lastName,email,phone,password);
 
             Stage stage = (Stage) emailField.getScene().getWindow();
-            var loader = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/main-layout.fxml"));
 
-            loader.setControllerFactory(controllerClass -> {
-                if (controllerClass == MainLayoutController.class) {
-                    return new MainLayoutController(userAccountService);
-                }
-                throw new IllegalArgumentException(
-                        "Unknown controller: " + controllerClass
-                );
-            });
+            sceneManager.showMainLayout(stage, user);
 
-            Parent root = loader.load();
-
-            MainLayoutController controller = loader.getController();
-            controller.setCurrentUserAccount(user);
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("PerfumeStore");
-            stage.centerOnScreen();
         }catch(BadRequestException e){
             showAlert("Registration failed",e.getMessage());
         }catch(IOException e){
@@ -100,18 +82,7 @@ public class RegisterController {
     @FXML
     void backToLoginAction(ActionEvent event) throws IOException {
         Stage stage = (Stage) emailField.getScene().getWindow();
-        var loaderForLogin = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/common/login.fxml"));
-
-        loaderForLogin.setControllerFactory(controllerClass ->{
-            if (controllerClass == LoginController.class){
-                return new LoginController(userAccountService);
-            }
-            throw new IllegalArgumentException("unknown controller: " + controllerClass);
-        });
-        Parent root = loaderForLogin.load();
-        stage.setScene(new Scene(root));
-        stage.setTitle("PerfumeStore");
-        stage.centerOnScreen();
+        sceneManager.showLogin(stage);
     }
 
 }

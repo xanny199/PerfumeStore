@@ -1,6 +1,6 @@
 package sk.upjs.perfumestore.user;
 
-import sk.upjs.perfumestore.BadRequestException;
+import sk.upjs.perfumestore.exception.BadRequestException;
 
 import java.util.Optional;
 import de.mkammerer.argon2.Argon2;

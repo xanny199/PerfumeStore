@@ -1,4 +1,4 @@
-package sk.upjs.perfumestore;
+package sk.upjs.perfumestore.config;
 
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;

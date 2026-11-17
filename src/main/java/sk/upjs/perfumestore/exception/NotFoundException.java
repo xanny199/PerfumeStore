@@ -1,4 +1,4 @@
-package sk.upjs.perfumestore;
+package sk.upjs.perfumestore.exception;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {
