@@ -4,14 +4,22 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.config.SceneManager;
+import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.user.UserAccountService;
 
 public class PerfumeStoreApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        UserAccountService service =
+        UserAccountService userAccountService =
                 new UserAccountService(Factory.INSTANCE.getUserAccountDao());
-        SceneManager sceneManager = new SceneManager(service);
+
+        ProductService productService =
+                new ProductService(Factory.INSTANCE.getProductDao());
+
+        SceneManager sceneManager = new SceneManager(
+                userAccountService,
+                productService
+        );
 
         sceneManager.showLogin(stage);
         stage.show();

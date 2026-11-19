@@ -5,15 +5,12 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="850.0" spacing="16.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="850.0" spacing="16.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController">
    <children>
       <HBox alignment="CENTER_LEFT" minWidth="0.0" prefHeight="45.0" prefWidth="200.0" spacing="10.0">
          <children>
@@ -29,36 +26,10 @@
             <ComboBox fx:id="brandComboBox" prefHeight="40.0" prefWidth="175.0" promptText="Brand" styleClass="filter-combo" />
             <ComboBox fx:id="audienceComboBox" prefHeight="40.0" prefWidth="175.0" promptText="Audience" styleClass="filter-combo" />
             <ComboBox fx:id="sortComboBox" prefHeight="40.0" prefWidth="175.0" promptText="Sort" styleClass="filter-combo" />
+            <Button fx:id="resetFiltersButton" mnemonicParsing="false" onAction="#resetFiltersOnAction" prefHeight="40.0" styleClass="primary-button" text="Reset" />
          </children>
       </FlowPane>
-      <TilePane hgap="15.0" maxWidth="1.7976931348623157E308" minWidth="0.0" prefColumns="2" prefHeight="200.0" prefTileWidth="230.0" prefWidth="200.0" vgap="15.0">
-         <children>
-            <VBox maxWidth="230.0" minWidth="230.0" prefWidth="100.0" spacing="10.0" styleClass="product-card">
-               <children>
-                  <StackPane maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="product-image-container">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </StackPane>
-                  <Label styleClass="text-secondary" text="Product Image" />
-                  <Label styleClass="text-secondary" text="Product Name" wrapText="true" />
-                  <VBox>
-                     <children>
-                        <Label text="Price">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="38.0" styleClass="primary-button" text="Add to cart" />
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-               </padding>
-            </VBox>
-         </children>
-      </TilePane>
+      <FlowPane fx:id="productFlowPane" hgap="20.0" maxWidth="1.7976931348623157E308" minWidth="0.0" rowValignment="BASELINE" vgap="20.0" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

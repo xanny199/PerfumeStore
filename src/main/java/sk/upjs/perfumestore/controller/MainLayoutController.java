@@ -149,14 +149,7 @@ public class MainLayoutController {
 
     private void loadContentPage(String fxmlPath) {
         try {
-            var resource = Objects.requireNonNull(
-                    getClass().getResource(fxmlPath),
-                    "FXML not found: " + fxmlPath
-            );
-
-            FXMLLoader loader = new FXMLLoader(resource);
-            Parent root = loader.load();
-
+            Parent root = sceneManager.showLoadContentPageForMainLayout(fxmlPath);
             contentPane.getChildren().setAll(root);
         } catch (IOException e) {
             throw new IllegalStateException(

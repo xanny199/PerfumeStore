@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="14.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="14.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label styleClass="page-title" text="My account" />
       <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">

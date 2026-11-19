@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="230.0" minWidth="230.0" prefWidth="100.0" spacing="10.0" styleClass="product-card" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController">
+   <children>
+      <StackPane maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="product-image-container">
+         <children>
+            <ImageView fx:id="productImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </StackPane>
+      <Label fx:id="productNameLabel" styleClass="text-secondary" text="Product name" />
+      <Label fx:id="brandLabel" styleClass="text-secondary" text="Brand" />
+      <Label fx:id="volumeLabel" styleClass="text-secondary" text="Volume" />
+      <Label fx:id="audienceLabel" styleClass="text-secondary" text="Audience" />
+      <VBox>
+         <children>
+            <Label fx:id="priceLabel" text="Price" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#detailsButtonOnAction" styleClass="secondary-button" text="Show Details" />
+            <VBox fx:id="detailsBox" spacing="5.0" visible="false">
+               <children>
+                  <Label fx:id="releaseYearLabel" text="Year" textFill="WHITE" wrapText="true">
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding></Label>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="product-description-scroll">
+                     <content>
+                        <Label fx:id="descriptionLabel" text="Description" textFill="WHITE" wrapText="true">
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                        </Label>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <Button fx:id="addToCartButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="38.0" styleClass="primary-button" text="Add to cart">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+   </padding>
+</VBox>

@@ -203,6 +203,47 @@
     -fx-background-color: #3B91FF;
 }
 
+/* ScrollPane inside Product Card */
+.product-description-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.product-description-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.product-description-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 7px;
+}
+
+.product-description-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.product-description-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #475569;
+    -fx-background-radius: 8px;
+}
+
+.product-description-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #64748b;
+}
+
+.product-description-scroll .scroll-bar:vertical .increment-button,
+.product-description-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.product-description-scroll .scroll-bar:vertical .increment-arrow,
+.product-description-scroll .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+}
+
 /* ===================================
    SIDEBAR SCROLL
    =================================== */

@@ -11,7 +11,38 @@ import java.util.*;
 
 public class JdbcProductDAO implements ProductDAO {
 
-    public final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    private final ResultSetExtractor<List<Product>> extractor = rs -> {
+        Map<Long, Product> map = new LinkedHashMap<>();
+        while (rs.next()) {
+            Long productId = rs.getLong("product_id");
+            if (!map.containsKey(productId)) {
+                List<FragranceNote> notes = new ArrayList<>();
+                Product product = new Product(
+                        rs.getLong("product_id"),
+                        rs.getString("product_name"),
+                        rs.getString("brand"),
+                        Product.CategoryType.valueOf(rs.getString("category_type")),
+                        Product.TargetAudience.valueOf(rs.getString("target_audience")),
+                        rs.getString("description"),
+                        rs.getInt("volume_ml"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("release_year"),
+                        rs.getInt("current_stock"),
+                        rs.getBoolean("is_available"),
+                        notes
+                );
+                map.put(productId, product);
+            }
+            long noteId = rs.getLong("note_id");
+            if (noteId > 0) {
+                FragranceNote note = new FragranceNote(noteId, rs.getString("note_name"));
+                map.get(productId).notes().add(note);
+            }
+        }
+        return new ArrayList<>(map.values());
+    };
 
     public JdbcProductDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -20,7 +51,7 @@ public class JdbcProductDAO implements ProductDAO {
     @Override
     public List<Product> findAll() {
         String sql = """
-                    SELECT 
+                    SELECT\s
                      p.id AS product_id,
                      p.name AS product_name,
                      p.brand,
@@ -33,49 +64,20 @@ public class JdbcProductDAO implements ProductDAO {
                      p.current_stock,
                      p.is_available,
                      fn.id AS note_id,
-                     fn.name AS note_name    
-                     FROM products p
-                     LEFT JOIN product_notes pn ON p.id = pn.product_id
-                     LEFT JOIN fragrance_notes fn ON pn.note_id = fn.id
-                     ORDER BY p.id        
-                """;
-        ResultSetExtractor<List<Product>> extractor = rs -> {
-            Map<Long, Product> map = new LinkedHashMap<>();
-            while (rs.next()) {
-                Long productId = rs.getLong("id");
-                if (!map.containsKey(productId)) {
-                    List<FragranceNote> notes = new ArrayList<>();
-                    Product product = new Product(
-                            rs.getLong("product_id"),
-                            rs.getString("product_name"),
-                            rs.getString("brand"),
-                            Product.CategoryType.valueOf(rs.getString("category_type")),
-                            Product.TargetAudience.valueOf(rs.getString("target_audience")),
-                            rs.getString("description"),
-                            rs.getInt("volume_ml"),
-                            rs.getBigDecimal("price"),
-                            rs.getInt("release_year"),
-                            rs.getInt("current_stock"),
-                            rs.getBoolean("is_available"),
-                            notes
-                    );
-                    map.put(productId, product);
-                }
-                long noteId = rs.getLong("note_id");
-                if (noteId > 0) {
-                    FragranceNote note = new FragranceNote(noteId, rs.getString("note_name"));
-                    map.get(productId).notes().add(note);
-                }
-            }
-            return new ArrayList<>(map.values());
-        };
-        return jdbcTemplate.query(sql, extractor);
+                     fn.name AS note_name
+                     FROM product p
+                     LEFT JOIN product_note pn ON p.id = pn.product_id
+                     LEFT JOIN fragrance_note fn ON pn.note_id = fn.id
+                     ORDER BY p.id       \s
+               \s""";
+
+        return jdbcTemplate.query(sql, this.extractor);
     }
 
     @Override
     public Optional<Product> findById(Long id) {
         String sql = """
-                    SELECT 
+                    SELECT\s
                      p.id AS product_id,
                      p.name AS product_name,
                      p.brand,
@@ -88,46 +90,16 @@ public class JdbcProductDAO implements ProductDAO {
                      p.current_stock,
                      p.is_available,
                      fn.id AS note_id,
-                     fn.name AS note_name    
-                     FROM products p
-                     LEFT JOIN product_notes pn ON p.id = pn.product_id
-                     LEFT JOIN fragrance_notes fn ON pn.note_id = fn.id
+                     fn.name AS note_name   \s
+                     FROM product p
+                     LEFT JOIN product_note pn ON p.id = pn.product_id
+                     LEFT JOIN fragrance_note fn ON pn.note_id = fn.id
                      WHERE p.id = ?
-                """;
-        ResultSetExtractor<Optional<Product>> extractor = rs -> {
-            Product product = null;
-            List<FragranceNote> notes = new ArrayList<>();
+               \s""";
 
-            while (rs.next()) {
-                if (product == null) {
-                    product = new Product(
-                            rs.getLong("product_id"),
-                            rs.getString("product_name"),
-                            rs.getString("brand"),
-                            Product.CategoryType.valueOf(rs.getString("category_type")),
-                            Product.TargetAudience.valueOf(rs.getString("target_audience")),
-                            rs.getString("description"),
-                            rs.getInt("volume_ml"),
-                            rs.getBigDecimal("price"),
-                            rs.getInt("release_year"),
-                            rs.getInt("current_stock"),
-                            rs.getBoolean("is_available"),
-                            notes
-                    );
-                }
-                long noteId = rs.getInt("note_id");
+        List<Product> products = jdbcTemplate.query(sql, this.extractor, id);
 
-                if (noteId > 0) {
-                    FragranceNote note = new FragranceNote(noteId, rs.getString("note_name"));
-                    notes.add(note);
-                }
-            }
-            if (product == null) {
-                return Optional.empty();
-            }
-            return Optional.of(product.withNotes(notes));
-        };
-        return jdbcTemplate.query(sql, extractor, id);
+        return products.stream().findFirst();
     }
 
     @Override
@@ -154,8 +126,8 @@ public class JdbcProductDAO implements ProductDAO {
             ps.setInt(9, product.currentStock());
             ps.setBoolean(10, product.isAvailable());
             return ps;
-        });
-        long newProductId = ((Number) keyHolder.getKeys().get("id")).longValue();
+        }, keyHolder);
+        long newProductId = ((Number) Objects.requireNonNull(keyHolder.getKeys()).get("id")).longValue();
 
         if (product.notes() != null && !product.notes().isEmpty()) {
             String sqlForNotes = "INSERT INTO product_note (product_id,note_id) VALUES (?,?)";
@@ -176,7 +148,7 @@ public class JdbcProductDAO implements ProductDAO {
         String deleteNoteSql = "DELETE FROM product_note WHERE product_id = ?";
         jdbcTemplate.update(deleteNoteSql, id);
 
-        String deleteProductSql = "DELETE FROM products WHERE id = ?";
+        String deleteProductSql = "DELETE FROM product WHERE id = ?";
         int rowAffected = jdbcTemplate.update(deleteProductSql, id);
 
         return rowAffected > 0;
@@ -188,7 +160,7 @@ public class JdbcProductDAO implements ProductDAO {
             throw new NullPointerException("note is null");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  p.id AS product_id,
                  p.name AS product_name,
                  p.brand,
@@ -209,38 +181,8 @@ public class JdbcProductDAO implements ProductDAO {
                     SELECT product_id FROM product_note WHERE note_id = ?
                  )
                  ORDER BY p.id
-                """;
-        ResultSetExtractor<List<Product>> extractor = rs -> {
-            Map<Long, Product> map = new LinkedHashMap<>();
-            while (rs.next()) {
-                Long productId = rs.getLong("id");
-                if (!map.containsKey(productId)) {
-                    List<FragranceNote> notes = new ArrayList<>();
-                    Product product = new Product(
-                            rs.getLong("product_id"),
-                            rs.getString("product_name"),
-                            rs.getString("brand"),
-                            Product.CategoryType.valueOf(rs.getString("category_type")),
-                            Product.TargetAudience.valueOf(rs.getString("target_audience")),
-                            rs.getString("description"),
-                            rs.getInt("volume_ml"),
-                            rs.getBigDecimal("price"),
-                            rs.getInt("release_year"),
-                            rs.getInt("current_stock"),
-                            rs.getBoolean("is_available"),
-                            notes
-                    );
-                    map.put(productId, product);
-                }
-                long noteId = rs.getInt("note_id");
-                if (noteId > 0) {
-                    FragranceNote newNote = new FragranceNote(noteId, rs.getString("note_name"));
-                    map.get(productId).notes().add(newNote);
-                }
-            }
-            return new ArrayList<>(map.values());
+               \s""";
 
-        };
-        return jdbcTemplate.query(sql, extractor, note.id());
+        return jdbcTemplate.query(sql, this.extractor, note.id());
     }
 }

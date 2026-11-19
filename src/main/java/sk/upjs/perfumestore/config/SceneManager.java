@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.controller.LoginController;
 import sk.upjs.perfumestore.controller.MainLayoutController;
+import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
+import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.RegisterController;
+import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.user.UserAccount;
 import sk.upjs.perfumestore.user.UserAccountService;
 
@@ -16,8 +19,11 @@ public class SceneManager {
 
     private final UserAccountService userAccountService;
 
-    public SceneManager(UserAccountService userAccountService) {
+    private final ProductService productService;
+
+    public SceneManager(UserAccountService userAccountService, ProductService productService) {
         this.userAccountService = userAccountService;
+        this.productService = productService;
     }
 
     public void showLogin(Stage stage) throws IOException {
@@ -77,5 +83,25 @@ public class SceneManager {
         stage.setScene(scene);
         stage.setTitle("Perfume Store");
         stage.centerOnScreen();
+    }
+
+    public Parent showLoadContentPageForMainLayout(String path) throws IOException {
+        var loader = new FXMLLoader(getClass().getResource(path));
+
+        loader.setControllerFactory(controllerClass -> {
+            if(controllerClass.equals(ProductCatalogController.class)) {
+                return new ProductCatalogController(productService, this);
+            } throw new IllegalArgumentException(
+                    "Unknown controller: " + controllerClass.getName()
+            );
+        });
+
+        return loader.load();
+    }
+
+    public FXMLLoader loadProductCatalogCard(String path) {
+        var loaderForProductCatalogCard = new FXMLLoader(getClass().getResource(path));
+
+        return loaderForProductCatalogCard;
     }
 }
