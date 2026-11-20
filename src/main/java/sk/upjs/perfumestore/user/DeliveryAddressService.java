@@ -52,4 +52,17 @@ public class DeliveryAddressService {
         );
         return deliveryAddressDAO.create(newAddress);
     }
+
+    public void deleteAddress(DeliveryAddress deliveryAddress) {
+        if (deliveryAddress == null){
+            throw new IllegalArgumentException("Address cannot be null");
+        }
+        boolean isIdInSaleTransaction = deliveryAddressDAO.isUsedInSaleTransaction(deliveryAddress.id());
+        if(isIdInSaleTransaction){
+            deliveryAddressDAO.detachFromUser(deliveryAddress.id());
+        }else{
+            deliveryAddressDAO.delete(deliveryAddress);
+        }
+
+    }
 }

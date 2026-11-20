@@ -3,6 +3,7 @@ package sk.upjs.perfumestore.controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import javafx.fxml.FXML;
 import sk.upjs.perfumestore.config.SceneManager;
@@ -51,6 +52,8 @@ public class MyAccountController {
     private TextField confirmNewPasswordVisibleField;
     @FXML
     private Button togglePasswordsButton;
+    @FXML
+    private VBox deliveryAddressesSection;
 
     private final UserAccountService userAccountService;
     private final DeliveryAddressService deliveryAddressService;
@@ -105,7 +108,14 @@ public class MyAccountController {
         emailField.setText(userAccount.email());
         phoneField.setText(userAccount.phone());
 
-        loadAddresses();
+        boolean isClient = userAccount.role() == UserAccount.Role.CLIENT;
+
+        deliveryAddressesSection.setVisible(isClient);
+        deliveryAddressesSection.setManaged(isClient);
+
+        if(isClient) {
+            loadAddresses();
+        }
     }
 
     public void setOnUserUpdated(Consumer<UserAccount> onUserUpdated) {
@@ -172,6 +182,20 @@ public class MyAccountController {
             showAlert(Alert.AlertType.INFORMATION, "Success", "Changes saved successfully.");
         } catch (BadRequestException | IllegalArgumentException e) {
             showAlert(Alert.AlertType.ERROR, "Save Failed", e.getMessage());
+        }
+    }
+
+    @FXML
+    void deleteAddressAction(ActionEvent event) {
+        DeliveryAddress selectedAddress = addressComboBox.getValue();
+        if (selectedAddress == null) {
+            showAlert(Alert.AlertType.WARNING, "No Address Selected", "Please select an address to delete");
+        }
+        try{
+            deliveryAddressService.deleteAddress(selectedAddress);
+            loadAddresses();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Delete Failed", e.getMessage());
         }
     }
 

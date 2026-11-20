@@ -41,12 +41,13 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
       </VBox>
-      <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
+      <VBox fx:id="deliveryAddressesSection" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
          <children>
             <Label styleClass="section-title" text="Delivery Addresses" />
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
                <children>
                   <ComboBox fx:id="addressComboBox" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Select delivery address" styleClass="filter-combo" HBox.hgrow="ALWAYS" />
+                   <Button fx:id="deleteAddressButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAddressAction" prefHeight="38.0" styleClass="secondary-button" text="Delete" />
                   <Button fx:id="addAddressButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#addAddressAction" prefHeight="38.0" styleClass="primary-button" text="+ Add" />
                </children>
             </HBox>

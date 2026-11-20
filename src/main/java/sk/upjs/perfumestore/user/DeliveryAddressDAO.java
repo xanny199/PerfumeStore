@@ -16,5 +16,9 @@ public interface DeliveryAddressDAO {
 
     boolean existsById(Long id);
 
+    boolean isUsedInSaleTransaction(Long id);
+
+    void detachFromUser(Long id);
+
     void delete(DeliveryAddress deliveryAddress);
 }

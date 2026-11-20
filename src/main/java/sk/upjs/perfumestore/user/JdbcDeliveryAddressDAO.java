@@ -154,6 +154,22 @@ public class JdbcDeliveryAddressDAO implements DeliveryAddressDAO {
     }
 
     @Override
+    public boolean isUsedInSaleTransaction(Long id){
+        String sql = "SELECT EXISTS (SELECT 1 FROM sale_transaction WHERE delivery_address_id = ?)";
+        Boolean exists = jdbcTemplate.queryForObject(sql, Boolean.class, id);
+        return Boolean.TRUE.equals(exists);
+    }
+
+    @Override
+    public void detachFromUser(Long id){
+        String sql = "UPDATE delivery_address SET user_id = NULL WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+        if (rowsAffected == 0) {
+            throw new IllegalArgumentException("Delivery address was not found");
+        }
+    }
+
+    @Override
     public boolean existsById(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Delivery address id cannot be null or zero or negative");

@@ -69,7 +69,7 @@ public class UserAccountService {
         }
         String passwordHash = argon2.hash(10, 65536, 1, password.toCharArray());
 
-        UserAccount newUser = new UserAccount(null, email, passwordHash, firstName, lastName, phone, UserAccount.Role.CLIENT, true);
+        UserAccount newUser = new UserAccount(null, email.trim(), passwordHash, firstName.trim(), lastName.trim(), phone, UserAccount.Role.CLIENT, true);
 
         return userAccountDao.create(newUser);
     }

@@ -67,7 +67,7 @@
                   </PasswordField>
                </children>
             </VBox>
-            <Button fx:id="signInButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#signInButtonOnAction" prefHeight="44.0" prefWidth="150.0" styleClass="primary-button" text="Sign in" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+            <Button fx:id="signInButton" defaultButton="true" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#signInButtonOnAction" prefHeight="44.0" prefWidth="150.0" styleClass="primary-button" text="Sign in" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
