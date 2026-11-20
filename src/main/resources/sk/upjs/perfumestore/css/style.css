@@ -66,7 +66,12 @@
 
 .input-field:focused {
     -fx-border-color: #3B91FF;
-    -fx-border-width: 2;
+}
+
+.readonly-field:focused {
+    -fx-border-color: #304058;
+    -fx-background-insets: 0;
+    -fx-effect: none;
 }
 
 /* Buttons */

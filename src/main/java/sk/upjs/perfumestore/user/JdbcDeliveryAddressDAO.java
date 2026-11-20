@@ -126,7 +126,7 @@ public class JdbcDeliveryAddressDAO implements DeliveryAddressDAO {
             return ps;
         }, keyHolder);
 
-        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        Long id = ((Number) Objects.requireNonNull(keyHolder.getKeys()).get("id")).longValue();
         return this.findById(id).orElseThrow();
     }
 

@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.user.DeliveryAddress;
+import sk.upjs.perfumestore.user.DeliveryAddressService;
 import sk.upjs.perfumestore.user.UserAccountService;
 
 public class PerfumeStoreApp extends Application {
@@ -16,9 +18,13 @@ public class PerfumeStoreApp extends Application {
         ProductService productService =
                 new ProductService(Factory.INSTANCE.getProductDao());
 
+        DeliveryAddressService deliveryAddressService =
+                new DeliveryAddressService(Factory.INSTANCE.getDeliveryAddressDao());
+
         SceneManager sceneManager = new SceneManager(
                 userAccountService,
-                productService
+                productService,
+                deliveryAddressService
         );
 
         sceneManager.showLogin(stage);

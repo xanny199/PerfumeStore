@@ -133,7 +133,15 @@ public class MainLayoutController {
 
     @FXML
     void profileButtonOnAction(ActionEvent event) {
-        loadContentPage("/sk/upjs/perfumestore/fxml/client/my-account.fxml");
+        try {
+            Parent root = sceneManager.showMyAccountPage(
+                    currentUserAccount,
+                    updatedUser -> this.currentUserAccount = updatedUser
+            );
+            contentPane.getChildren().setAll(root);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to load FXML: my-account.fxml", e);
+        }
     }
 
     @FXML
