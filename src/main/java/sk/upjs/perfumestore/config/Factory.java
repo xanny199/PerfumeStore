@@ -11,6 +11,7 @@ import sk.upjs.perfumestore.transaction.JdbcSaleTransactionDAO;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionDAO;
 import sk.upjs.perfumestore.user.DeliveryAddressDAO;
+import sk.upjs.perfumestore.user.JdbcDeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcUserAccountDAO;
 import sk.upjs.perfumestore.user.UserAccountDAO;
 
@@ -62,6 +63,13 @@ public enum Factory {
             productDao =  new JdbcProductDAO(getJdbcTemplate());
         }
         return productDao;
+    }
+
+    public DeliveryAddressDAO getDeliveryAddressDao() {
+        if (deliveryAddressDao == null) {
+            deliveryAddressDao = new JdbcDeliveryAddressDAO(getJdbcTemplate());
+        }
+        return deliveryAddressDao;
     }
 
     public SaleTransactionDAO getSaleTransactionDao() {

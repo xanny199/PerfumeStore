@@ -13,7 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="14.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.StackPane?>
+<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="14.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.MyAccountController">
    <children>
       <Label styleClass="page-title" text="My account" />
       <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
@@ -29,10 +30,10 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Frist name" styleClass="input-field" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Email" styleClass="input-field" GridPane.rowIndex="1" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Last name" styleClass="input-field" GridPane.columnIndex="1" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Phone" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="firstNameField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="First name" styleClass="input-field" />
+                  <TextField fx:id="emailField" editable="false" focusTraversable="false" opacity="0.65" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Email" styleClass="input-field, readonly-field" GridPane.rowIndex="1" />
+                  <TextField fx:id="lastNameField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Last name" styleClass="input-field" GridPane.columnIndex="1" />
+                  <TextField fx:id="phoneField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Phone" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -40,13 +41,14 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
       </VBox>
-      <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
+      <VBox fx:id="deliveryAddressesSection" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
          <children>
             <Label styleClass="section-title" text="Delivery Addresses" />
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
                <children>
-                  <ComboBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Select delivery address" styleClass="filter-combo" HBox.hgrow="ALWAYS" />
-                  <Button minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" styleClass="primary-button" text="+ Add" />
+                  <ComboBox fx:id="addressComboBox" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Select delivery address" styleClass="filter-combo" HBox.hgrow="ALWAYS" />
+                   <Button fx:id="deleteAddressButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAddressAction" prefHeight="38.0" styleClass="secondary-button" text="Delete" />
+                  <Button fx:id="addAddressButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#addAddressAction" prefHeight="38.0" styleClass="primary-button" text="+ Add" />
                </children>
             </HBox>
             <GridPane hgap="12.0" maxWidth="1.7976931348623157E308" minWidth="0.0" vgap="12.0">
@@ -59,10 +61,10 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Street" styleClass="input-field" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Postal code" styleClass="input-field" GridPane.rowIndex="1" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="City" styleClass="input-field" GridPane.columnIndex="1" />
-                  <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Country" styleClass="input-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="streetField" editable="false" focusTraversable="false" opacity="0.65" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Street" styleClass="input-field, readonly-field" />
+                  <TextField fx:id="postalCodeField" editable="false" focusTraversable="false" opacity="0.65" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Postal code" styleClass="input-field, readonly-field" GridPane.rowIndex="1" />
+                  <TextField fx:id="cityField" editable="false" focusTraversable="false" opacity="0.65" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="City" styleClass="input-field, readonly-field" GridPane.columnIndex="1" />
+                  <TextField fx:id="countryField" editable="false" focusTraversable="false" opacity="0.65" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Country" styleClass="input-field, readonly-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -70,31 +72,51 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
       </VBox>
-      <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
-         <children>
-            <Label styleClass="section-title" text="Change Password" />
-            <PasswordField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Current Password" styleClass="input-field" />
-            <GridPane hgap="12.0" maxWidth="1.7976931348623157E308" minWidth="0.0" vgap="12.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <PasswordField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="New Password" styleClass="input-field" />
-                  <PasswordField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Confirm New Password" styleClass="input-field" GridPane.columnIndex="1" />
-               </children>
-            </GridPane>
-         </children>
-         <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-         </padding>
-      </VBox>
+       <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="12.0" styleClass="account-section">
+           <children>
+               <Label styleClass="section-title" text="Change Password" />
+               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
+                   <children>
+                       <StackPane maxWidth="1.7976931348623157E308" minWidth="0.0" HBox.hgrow="ALWAYS">
+                           <children>
+                               <TextField fx:id="currentPasswordVisibleField" managed="false" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Current Password" styleClass="input-field" visible="false" />
+                               <PasswordField fx:id="currentPasswordField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Current Password" styleClass="input-field" />
+                           </children>
+                       </StackPane>
+                       <Button fx:id="togglePasswordsButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#togglePasswordsAction" prefHeight="38.0" styleClass="primary-button" text="Show pass" />
+                   </children>
+               </HBox>
+               <GridPane hgap="12.0" maxWidth="1.7976931348623157E308" minWidth="0.0" vgap="12.0">
+                   <columnConstraints>
+                       <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                       <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints vgrow="SOMETIMES" />
+                   </rowConstraints>
+                   <children>
+                       <StackPane>
+                           <children>
+                               <TextField fx:id="newPasswordVisibleField" managed="false" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="New Password" styleClass="input-field" visible="false" />
+                               <PasswordField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="New Password" styleClass="input-field" />
+                           </children>
+                       </StackPane>
+                       <StackPane GridPane.columnIndex="1">
+                           <children>
+                               <TextField fx:id="confirmNewPasswordVisibleField" managed="false" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Confirm New Password" styleClass="input-field" visible="false" />
+                               <PasswordField fx:id="confirmNewPasswordField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="38.0" promptText="Confirm New Password" styleClass="input-field" />
+                           </children>
+                       </StackPane>
+                   </children>
+               </GridPane>
+           </children>
+           <padding>
+               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+           </padding>
+       </VBox>
       <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minWidth="0.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="185.0" styleClass="primary-button" text="Save All Changes" />
+            <Button fx:id="saveAllButton" mnemonicParsing="false" onAction="#saveAllChangesAction" prefHeight="48.0" prefWidth="185.0" styleClass="primary-button" text="Save All Changes" />
          </children>
       </HBox>
    </children>

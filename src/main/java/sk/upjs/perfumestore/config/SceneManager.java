@@ -3,20 +3,22 @@ package sk.upjs.perfumestore.config;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sk.upjs.perfumestore.controller.LoginController;
-import sk.upjs.perfumestore.controller.MainLayoutController;
+import sk.upjs.perfumestore.controller.*;
+import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
+import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
-import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
-import sk.upjs.perfumestore.controller.RegisterController;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
+import sk.upjs.perfumestore.user.DeliveryAddressService;
 import sk.upjs.perfumestore.user.UserAccount;
 import sk.upjs.perfumestore.user.UserAccountService;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class SceneManager {
 
@@ -26,11 +28,13 @@ public class SceneManager {
 
     private final SaleTransactionService saleTransactionService;
 
+    private final DeliveryAddressService deliveryAddressService;
 
     public SceneManager(UserAccountService userAccountService, ProductService productService, SaleTransactionService saleTransactionService) {
         this.userAccountService = userAccountService;
         this.productService = productService;
         this.saleTransactionService = saleTransactionService;
+        this.deliveryAddressService = deliveryAddressService;
     }
 
     public void showLogin(Stage stage) throws IOException {
@@ -113,6 +117,44 @@ public class SceneManager {
         }
 
         return root;
+    }
+    public Parent showMyAccountPage(UserAccount user, Consumer<UserAccount> onUserUpdated) throws IOException {
+        var loaderForMyAccount = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/client/my-account.fxml"));
+
+        loaderForMyAccount.setControllerFactory(controllerClass -> {
+            if (controllerClass.equals(MyAccountController.class)) {
+                return new MyAccountController(userAccountService, deliveryAddressService,this);
+            } throw new IllegalArgumentException(
+                    "Unknown controller: " + controllerClass.getName()
+            );
+        });
+
+        Parent root = loaderForMyAccount.load();
+
+        MyAccountController controller = loaderForMyAccount.getController();
+        controller.setCurrentUserAccount(user);
+        controller.setOnUserUpdated(onUserUpdated);
+
+        return root;
+    }
+
+    public void showAddAddressDialog(Long userId) throws IOException{
+        var loaderForDeliveryAddressAdd = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/dialogs/address-edit.fxml"));
+
+        loaderForDeliveryAddressAdd.setControllerFactory(controllerClass -> {
+            if(controllerClass.equals(AddressEditController.class)){
+                return new AddressEditController(deliveryAddressService,userId);
+            }throw new IllegalArgumentException("Unknown controller: " + controllerClass.getName());
+        });
+
+        Parent root = loaderForDeliveryAddressAdd.load();
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Add Delivery Address");
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setScene(new Scene(root));
+        dialogStage.centerOnScreen();
+        dialogStage.showAndWait();
     }
 
     public FXMLLoader loadProductCatalogCard(String path) {

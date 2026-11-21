@@ -126,7 +126,7 @@ public class JdbcDeliveryAddressDAO implements DeliveryAddressDAO {
             return ps;
         }, keyHolder);
 
-        Long id = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        Long id = ((Number) Objects.requireNonNull(keyHolder.getKeys()).get("id")).longValue();
         return this.findById(id).orElseThrow();
     }
 
@@ -151,6 +151,22 @@ public class JdbcDeliveryAddressDAO implements DeliveryAddressDAO {
         );
 
         if (affectedRows == 0) throw new IllegalArgumentException("Delivery address was not found");
+    }
+
+    @Override
+    public boolean isUsedInSaleTransaction(Long id){
+        String sql = "SELECT EXISTS (SELECT 1 FROM sale_transaction WHERE delivery_address_id = ?)";
+        Boolean exists = jdbcTemplate.queryForObject(sql, Boolean.class, id);
+        return Boolean.TRUE.equals(exists);
+    }
+
+    @Override
+    public void detachFromUser(Long id){
+        String sql = "UPDATE delivery_address SET user_id = NULL WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+        if (rowsAffected == 0) {
+            throw new IllegalArgumentException("Delivery address was not found");
+        }
     }
 
     @Override

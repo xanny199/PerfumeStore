@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.user.DeliveryAddress;
+import sk.upjs.perfumestore.user.DeliveryAddressService;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.UserAccountService;
 
@@ -20,9 +22,13 @@ public class PerfumeStoreApp extends Application {
         SaleTransactionService saleTransactionService =
                 new SaleTransactionService(Factory.INSTANCE.getSaleTransactionDao());
 
+        DeliveryAddressService deliveryAddressService =
+                new DeliveryAddressService(Factory.INSTANCE.getDeliveryAddressDao());
+
         SceneManager sceneManager = new SceneManager(
                 userAccountService,
                 productService,
+                deliveryAddressService,
                 saleTransactionService
         );
 
