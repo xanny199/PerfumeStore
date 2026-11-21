@@ -16,7 +16,6 @@ import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.UserAccount;
 
 import java.io.IOException;
-import java.io.NotActiveException;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
