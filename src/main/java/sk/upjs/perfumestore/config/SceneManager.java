@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.controller.*;
-import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
@@ -30,11 +29,11 @@ public class SceneManager {
 
     private final DeliveryAddressService deliveryAddressService;
 
-    public SceneManager(UserAccountService userAccountService, ProductService productService, SaleTransactionService saleTransactionService) {
+    public SceneManager(UserAccountService userAccountService, ProductService productService, DeliveryAddressService deliveryAddressService, SaleTransactionService saleTransactionService) {
         this.userAccountService = userAccountService;
         this.productService = productService;
-        this.saleTransactionService = saleTransactionService;
         this.deliveryAddressService = deliveryAddressService;
+        this.saleTransactionService = saleTransactionService;
     }
 
     public void showLogin(Stage stage) throws IOException {
