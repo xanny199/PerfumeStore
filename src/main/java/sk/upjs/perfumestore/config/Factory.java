@@ -7,10 +7,15 @@ import sk.upjs.perfumestore.product.JdbcProductDAO;
 import sk.upjs.perfumestore.product.ProductDAO;
 import sk.upjs.perfumestore.supply.PriceHistoryDAO;
 import sk.upjs.perfumestore.supply.StockSupplyDAO;
+import sk.upjs.perfumestore.transaction.JdbcSaleTransactionDAO;
+import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionDAO;
 import sk.upjs.perfumestore.user.DeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcUserAccountDAO;
 import sk.upjs.perfumestore.user.UserAccountDAO;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 
 public enum Factory {
     INSTANCE;
@@ -57,5 +62,13 @@ public enum Factory {
             productDao =  new JdbcProductDAO(getJdbcTemplate());
         }
         return productDao;
+    }
+
+    public SaleTransactionDAO getSaleTransactionDao() {
+        if (saleTransactionDao == null) {
+            saleTransactionDao = new JdbcSaleTransactionDAO(getJdbcTemplate());
+        }
+
+        return saleTransactionDao;
     }
 }

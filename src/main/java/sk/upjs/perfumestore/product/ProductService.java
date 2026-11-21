@@ -20,4 +20,11 @@ public class ProductService {
         }
         return resultList;
     }
+
+    public String getProductName(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Product id must be greater than zero");
+        }
+        return productDAO.findById(id).orElseThrow().name();
+    }
 }

@@ -68,7 +68,7 @@ public class ProductCatalogController {
     private void displayProducts(List<Product> products) {
         productFlowPane.getChildren().clear();
 
-        String fxmlPath = "/sk/upjs/perfumestore/fxml/client/product-card.fxml";
+        String fxmlPath = "/sk/upjs/perfumestore/fxml/dialogs/product-card.fxml";
         for (Product p : products) {
             var loaderForProductCard = sceneManager.loadProductCatalogCard(fxmlPath);
 

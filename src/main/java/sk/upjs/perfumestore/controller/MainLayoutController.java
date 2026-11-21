@@ -103,7 +103,7 @@ public class MainLayoutController {
 
     @FXML
     void myOrdersButtonOnAction(ActionEvent event) {
-        loadContentPage("/sk/upjs/perfumestore/fxml/client/my-orders.fxml");
+        showMyOrders();
     }
 
     @FXML
@@ -149,13 +149,21 @@ public class MainLayoutController {
 
     private void loadContentPage(String fxmlPath) {
         try {
-            Parent root = sceneManager.showLoadContentPageForMainLayout(fxmlPath);
-            contentPane.getChildren().setAll(root);
+            Parent root = sceneManager.showLoadContentPageForMainLayout(fxmlPath, currentUserAccount, this);
+            showContent(root);
         } catch (IOException e) {
             throw new IllegalStateException(
                     "Failed to load FXML: " + fxmlPath, e
             );
         }
+    }
+
+    public void showContent(Parent root) {
+        contentPane.getChildren().setAll(root);
+    }
+
+    public void showMyOrders() {
+        loadContentPage("/sk/upjs/perfumestore/fxml/client/my-orders.fxml");
     }
 
     private void loadDefaultPage() {

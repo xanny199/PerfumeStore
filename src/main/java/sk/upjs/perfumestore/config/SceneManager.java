@@ -6,10 +6,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.controller.LoginController;
 import sk.upjs.perfumestore.controller.MainLayoutController;
-import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
+import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
+import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.RegisterController;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.transaction.SaleTransaction;
+import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.UserAccount;
 import sk.upjs.perfumestore.user.UserAccountService;
 
@@ -21,9 +24,13 @@ public class SceneManager {
 
     private final ProductService productService;
 
-    public SceneManager(UserAccountService userAccountService, ProductService productService) {
+    private final SaleTransactionService saleTransactionService;
+
+
+    public SceneManager(UserAccountService userAccountService, ProductService productService, SaleTransactionService saleTransactionService) {
         this.userAccountService = userAccountService;
         this.productService = productService;
+        this.saleTransactionService = saleTransactionService;
     }
 
     public void showLogin(Stage stage) throws IOException {
@@ -85,23 +92,50 @@ public class SceneManager {
         stage.centerOnScreen();
     }
 
-    public Parent showLoadContentPageForMainLayout(String path) throws IOException {
+    public Parent showLoadContentPageForMainLayout(String path, UserAccount currentUserAccount, MainLayoutController mainLayoutController) throws IOException {
         var loader = new FXMLLoader(getClass().getResource(path));
 
         loader.setControllerFactory(controllerClass -> {
             if(controllerClass.equals(ProductCatalogController.class)) {
                 return new ProductCatalogController(productService, this);
+            }
+            if(controllerClass.equals(MyOrdersController.class)) {
+                return new MyOrdersController(saleTransactionService, this, mainLayoutController);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );
         });
 
-        return loader.load();
+        Parent root = loader.load();
+
+        if (loader.getController() instanceof MyOrdersController controller) {
+            controller.setCurrentUserAccount(currentUserAccount);
+        }
+
+        return root;
     }
 
     public FXMLLoader loadProductCatalogCard(String path) {
-        var loaderForProductCatalogCard = new FXMLLoader(getClass().getResource(path));
+        return new FXMLLoader(getClass().getResource(path));
+    }
 
-        return loaderForProductCatalogCard;
+    public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController) throws IOException {
+        var loaderForOrderDetails = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/dialogs/order-details.fxml"));
+
+        loaderForOrderDetails.setControllerFactory(controllerClass -> {
+            if(controllerClass.equals(OrdersDetailsContorller.class)) {
+                return new OrdersDetailsContorller(productService);
+            } throw new IllegalArgumentException(
+                    "Unknown controller: " + controllerClass.getName()
+            );
+        });
+
+        Parent root = loaderForOrderDetails.load();
+
+        OrdersDetailsContorller controller = loaderForOrderDetails.getController();
+        controller.setCurrentSaleTransaction(saleTransaction);
+        controller.setMainLayoutController(mainLayoutController);
+
+        return root;
     }
 }

@@ -101,7 +101,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
     @Override
     public List<SaleTransaction> findAll() {
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -117,7 +117,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  FROM sale_transaction t
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor);
     }
 
@@ -127,7 +127,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
             throw new IllegalArgumentException("ID must be strictly positive");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -144,10 +144,10 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.id = ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         List<SaleTransaction> saleTransactions = jdbcTemplate.query(sql, extractor, id);
         if (saleTransactions.isEmpty()) return null;
-        return saleTransactions.get(0);
+        return saleTransactions.getFirst();
     }
 
     @Override
@@ -156,7 +156,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
             throw new IllegalArgumentException("ID must be strictly positive");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -173,7 +173,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.customer_id = ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor, id);
     }
 
@@ -183,7 +183,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
             throw new IllegalArgumentException("ID must be strictly positive");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -200,7 +200,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.employee_id = ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor, id);
     }
 
@@ -210,7 +210,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
             throw new IllegalArgumentException("Status cannot be null");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -227,14 +227,14 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.status = ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor, status);
     }
 
     @Override
     public List<SaleTransaction> findByDateRange(OffsetDateTime start, OffsetDateTime end) {
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -251,7 +251,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.created_at BETWEEN ? AND ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor, start, end);
     }
 
@@ -261,7 +261,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
             throw new IllegalArgumentException("ID must be strictly positive");
         }
         String sql = """
-                SELECT 
+                SELECT\s
                  t.id AS t_id,
                  t.customer_id AS t_customer_id,
                  t.employee_id AS t_employee_id,
@@ -278,7 +278,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
                  WHERE t.employee_id = ? AND t.created_at BETWEEN ? AND ?
                  ORDER BY t.created_at DESC, t.id
-                """;
+               \s""";
         return jdbcTemplate.query(sql, extractor, employeeId, start, end);
     }
 
