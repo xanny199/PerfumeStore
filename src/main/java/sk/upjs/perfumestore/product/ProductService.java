@@ -27,4 +27,15 @@ public class ProductService {
         }
         return productDAO.findById(id).orElseThrow().name();
     }
+
+    public boolean isAvaliableCountForCurrentStock(Product product, int count) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product must not be null");
+        }
+        if (count <= 0) {
+            throw new IllegalArgumentException("Count must be greater than zero");
+        }
+
+        return (product.currentStock() - count) >= 0;
+    }
 }

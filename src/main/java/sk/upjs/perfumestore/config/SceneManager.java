@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.controller.*;
+import sk.upjs.perfumestore.controller.CashierControllers.CashRegisterController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
@@ -109,6 +110,9 @@ public class SceneManager {
             }
             if(controllerClass.equals(MyOrdersController.class)) {
                 return new MyOrdersController(saleTransactionService, this, mainLayoutController);
+            }
+            if (controllerClass.equals(CashRegisterController.class)) {
+                return new CashRegisterController(productService, saleTransactionService);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );
@@ -117,6 +121,9 @@ public class SceneManager {
         Parent root = loader.load();
 
         if (loader.getController() instanceof MyOrdersController controller) {
+            controller.setCurrentUserAccount(currentUserAccount);
+        }
+        if (loader.getController() instanceof CashRegisterController controller) {
             controller.setCurrentUserAccount(currentUserAccount);
         }
 

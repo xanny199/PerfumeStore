@@ -556,6 +556,44 @@
     -fx-background-radius: 8;
 }
 
+.cash-root .combo-box {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+}
+
+.cash-root .combo-box:focused {
+    -fx-border-color: #247BEB;
+}
+
+.cash-root .combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F8FAFC;
+}
+
+.cash-root .combo-box .arrow {
+    -fx-background-color: #93A1B8;
+}
+
+/* Dropdown */
+
+.cash-root .combo-box-popup .list-view {
+    -fx-background-color: #171E2C;
+    -fx-border-color: #304058;
+}
+
+.cash-root .combo-box-popup .list-cell {
+    -fx-background-color: #171E2C;
+    -fx-text-fill: #F8FAFC;
+}
+
+.cash-root .combo-box-popup .list-cell:hover,
+.cash-root .combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #247BEB;
+    -fx-text-fill: white;
+}
+
 .cash-root .table-view .column-header-background,
 .cash-root .table-view .column-header,
 .cash-root .table-view .filler {

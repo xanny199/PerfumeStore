@@ -70,7 +70,7 @@ public class OrdersDetailsContorller {
         Objects.requireNonNull(saleTransaction);
 
         orderIdLabel.setText("Order ID: " + saleTransaction.id());
-        orderDateLabel.setText("Date: " + saleTransaction.createdAt().format(
+        orderDateLabel.setText("Date: " + saleTransaction.createdAt().toLocalDateTime().format(
                 DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
         ));
         orderStatusLabel.setText("Status: " + saleTransaction.status());
