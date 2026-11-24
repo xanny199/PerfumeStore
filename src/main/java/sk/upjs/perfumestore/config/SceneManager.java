@@ -6,10 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.controller.*;
+import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.product.productImage.ProductImageService;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.DeliveryAddressService;
@@ -25,13 +27,16 @@ public class SceneManager {
 
     private final ProductService productService;
 
+    private final ProductImageService productImageService;
+
     private final SaleTransactionService saleTransactionService;
 
     private final DeliveryAddressService deliveryAddressService;
 
-    public SceneManager(UserAccountService userAccountService, ProductService productService, DeliveryAddressService deliveryAddressService, SaleTransactionService saleTransactionService) {
+    public SceneManager(UserAccountService userAccountService, ProductService productService, ProductImageService productImageService, DeliveryAddressService deliveryAddressService, SaleTransactionService saleTransactionService) {
         this.userAccountService = userAccountService;
         this.productService = productService;
+        this.productImageService = productImageService;
         this.deliveryAddressService = deliveryAddressService;
         this.saleTransactionService = saleTransactionService;
     }
@@ -157,7 +162,17 @@ public class SceneManager {
     }
 
     public FXMLLoader loadProductCatalogCard(String path) {
-        return new FXMLLoader(getClass().getResource(path));
+        var loader = new FXMLLoader(getClass().getResource(path));
+
+        loader.setControllerFactory(controllerClass -> {
+            if(controllerClass.equals(ProductCardController.class)) {
+                return new ProductCardController(productImageService);
+            } throw new IllegalArgumentException(
+                    "Unknown controller: " + controllerClass.getName()
+            );
+        });
+
+        return loader;
     }
 
     public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController) throws IOException {

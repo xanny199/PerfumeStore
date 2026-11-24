@@ -4,9 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import sk.upjs.perfumestore.product.Product;
+import sk.upjs.perfumestore.product.productImage.ProductImageService;
+
+import java.net.URL;
 
 public class ProductCardController {
 
@@ -45,6 +49,12 @@ public class ProductCardController {
 
     private Product product;
 
+    private final ProductImageService productImageService;
+
+    public ProductCardController(ProductImageService productImageService) {
+        this.productImageService = productImageService;
+    }
+
     @FXML
     private void initialize() {
         detailsBox.managedProperty().bind(detailsBox.visibleProperty());
@@ -64,6 +74,18 @@ public class ProductCardController {
         descriptionLabel.setText(
                 product.description() == null || product.description().isBlank() ? "No description available." : product.description()
         );
+
+        productImageService.getProductImageByProductId(product.id())
+                .ifPresent(productImage -> {
+                    String imagePath = productImage.imagePath();
+
+                    URL imageURL = getClass().getResource(imagePath);
+
+                    if(imageURL != null) {
+                        Image image = new Image(String.valueOf(imageURL));
+                        productImageView.setImage(image);
+                    }
+                });
     }
 
     @FXML

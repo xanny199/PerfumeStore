@@ -311,8 +311,10 @@
 
 /* Product Card Image */
 .product-image-container {
-    -fx-background-color: #26354B;
-    -fx-background-radius: 8;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+    -fx-min-height: 150px;
 }
 
 /* ===================================

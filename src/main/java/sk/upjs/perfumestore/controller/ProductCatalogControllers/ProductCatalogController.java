@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.product.Product;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.product.productImage.ProductImageService;
 
 import java.io.IOException;
 import java.util.List;

@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import sk.upjs.perfumestore.product.FragranceNoteDAO;
 import sk.upjs.perfumestore.product.JdbcProductDAO;
 import sk.upjs.perfumestore.product.ProductDAO;
+import sk.upjs.perfumestore.product.productImage.JdbcProductImageDAO;
+import sk.upjs.perfumestore.product.productImage.ProductImageDAO;
 import sk.upjs.perfumestore.supply.PriceHistoryDAO;
 import sk.upjs.perfumestore.supply.StockSupplyDAO;
 import sk.upjs.perfumestore.transaction.JdbcSaleTransactionDAO;
@@ -26,6 +28,8 @@ public enum Factory {
     private DeliveryAddressDAO deliveryAddressDao;
 
     private ProductDAO productDao;
+
+    private ProductImageDAO productImageDao;
 
     private FragranceNoteDAO fragranceNoteDao;
 
@@ -63,6 +67,13 @@ public enum Factory {
             productDao =  new JdbcProductDAO(getJdbcTemplate());
         }
         return productDao;
+    }
+
+    public ProductImageDAO getProductImageDao() {
+        if (productImageDao == null) {
+            productImageDao =  new JdbcProductImageDAO(getJdbcTemplate());
+        }
+        return productImageDao;
     }
 
     public DeliveryAddressDAO getDeliveryAddressDao() {
