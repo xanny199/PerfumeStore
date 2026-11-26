@@ -312,8 +312,32 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
         if(status==null){
             throw new IllegalArgumentException("Status cannot be null");
         }
+
+        if (status == SaleTransaction.OrderStatus.PENDING) return false;
+
         String sql = "UPDATE sale_transaction SET status = ?::order_status WHERE id = ?";
         int rowsAffected = jdbcTemplate.update(sql, status.name(), id);
-        return rowsAffected > 0;
+
+        if(rowsAffected != 1) return false;
+
+        if(status == SaleTransaction.OrderStatus.CANCELLED) {
+            SaleTransaction order = findById(id);
+
+            String stockSql = """
+                    UPDATE product
+                    SET current_stock = current_stock + ?
+                    WHERE id = ?
+                    """;
+
+            for (TransactionItem item : order.items()) {
+                jdbcTemplate.update(
+                        stockSql,
+                        item.quantity(),
+                        item.productId()
+                );
+            }
+        }
+
+        return true;
     }
 }

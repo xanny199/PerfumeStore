@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="16.0" styleClass="order-management-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="16.0" styleClass="order-management-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.OrderManagementController">
    <children>
       <Label styleClass="page-title" text="Order Management" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
          <children>
             <TextField fx:id="orderSearchField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Search order ID..." styleClass="input-field" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="statusFilterComboBox" prefHeight="40.0" prefWidth="150.0" promptText="All statuses" styleClass="filter-combo" />
+            <Button fx:id="resetStatusesComboBox" mnemonicParsing="false" onAction="#resetStatusesComboBoxOnAction" prefHeight="40.0" styleClass="primary-button" text="Reset" />
          </children>
       </HBox>
-      <TableView fx:id="ordersTable" maxWidth="1.7976931348623157E308" minHeight="180.0" minWidth="0.0" prefHeight="300.0" VBox.vgrow="NEVER">
+      <TableView fx:id="ordersTable" maxWidth="1.7976931348623157E308" minWidth="0.0" onMouseClicked="#selectedOrderOnMouseClicked" VBox.vgrow="NEVER">
         <columns>
             <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="Order ID" />
           <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer" />
@@ -38,8 +38,8 @@
             <Label fx:id="selectedOrderLabel" styleClass="muted-label" text="Select an order to manage" />
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
                <children>
-                  <ComboBox fx:id="newStatusComboBox" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="New Status" styleClass="filter-combo" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="updateStatusButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" styleClass="primary-button" text="Update Status" />
+                  <ComboBox fx:id="newStatusComboBox" maxWidth="1.7976931348623157E308" minWidth="0.0" onAction="#newStatusComboBoxOnAction" prefHeight="40.0" promptText="New Status" styleClass="filter-combo" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="updateStatusButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#updateStatusButtonOnAction" prefHeight="40.0" styleClass="primary-button" text="Update Status" />
                </children>
             </HBox>
          </children>

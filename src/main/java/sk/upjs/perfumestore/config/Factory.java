@@ -1,6 +1,6 @@
 package sk.upjs.perfumestore.config;
 
-import org.postgresql.ds.PGSimpleDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import sk.upjs.perfumestore.product.FragranceNoteDAO;
 import sk.upjs.perfumestore.product.JdbcProductDAO;
@@ -10,15 +10,12 @@ import sk.upjs.perfumestore.product.productImage.ProductImageDAO;
 import sk.upjs.perfumestore.supply.PriceHistoryDAO;
 import sk.upjs.perfumestore.supply.StockSupplyDAO;
 import sk.upjs.perfumestore.transaction.JdbcSaleTransactionDAO;
-import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionDAO;
 import sk.upjs.perfumestore.user.DeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcDeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcUserAccountDAO;
 import sk.upjs.perfumestore.user.UserAccountDAO;
 
-import java.time.OffsetDateTime;
-import java.util.List;
 
 public enum Factory {
     INSTANCE;
@@ -39,6 +36,8 @@ public enum Factory {
 
     private SaleTransactionDAO saleTransactionDao;
 
+    private final HikariDataSource dataSource = createDataSource();
+
     private JdbcTemplate jdbcTemplate;
 
     public JdbcTemplate getJdbcTemplate() {
@@ -46,13 +45,22 @@ public enum Factory {
             return jdbcTemplate;
         }
 
-        var dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(System.getProperty("DB_URL","jdbc:postgresql://localhost:5433/perfumestore"));
-        dataSource.setUser(System.getProperty("DB_USER", "postgres"));
-        dataSource.setPassword(System.getProperty("DB_PASSWORD", "secretpassword"));
-
         jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate;
+    }
+
+    private static HikariDataSource createDataSource() {
+        var pool = new HikariDataSource();
+
+        pool.setJdbcUrl(System.getProperty("DB_URL", "jdbc:postgresql://localhost:5433/perfumestore"));
+        pool.setUsername(System.getProperty("DB_USER", "perfumestore"));
+        pool.setPassword(System.getProperty("DB_PASSWORD", "secretPassword"));
+
+        return pool;
+    }
+
+    public void close() {
+        dataSource.close();
     }
 
     public UserAccountDAO getUserAccountDao() {

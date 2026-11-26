@@ -2,18 +2,24 @@ package sk.upjs.perfumestore.app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.config.SceneManager;
+import sk.upjs.perfumestore.config.TransactionConfig;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.product.productImage.ProductImageService;
-import sk.upjs.perfumestore.user.DeliveryAddress;
 import sk.upjs.perfumestore.user.DeliveryAddressService;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.UserAccountService;
 
 public class PerfumeStoreApp extends Application {
+
+    private AnnotationConfigApplicationContext springContext;
+
     @Override
     public void start(Stage stage) throws Exception {
+        springContext = new AnnotationConfigApplicationContext(TransactionConfig.class);
+
         UserAccountService userAccountService =
                 new UserAccountService(Factory.INSTANCE.getUserAccountDao());
 
@@ -24,7 +30,7 @@ public class PerfumeStoreApp extends Application {
                 new ProductImageService(Factory.INSTANCE.getProductImageDao());
 
         SaleTransactionService saleTransactionService =
-                new SaleTransactionService(Factory.INSTANCE.getSaleTransactionDao());
+                springContext.getBean(SaleTransactionService.class);
 
         DeliveryAddressService deliveryAddressService =
                 new DeliveryAddressService(Factory.INSTANCE.getDeliveryAddressDao());
@@ -43,5 +49,16 @@ public class PerfumeStoreApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() {
+        try {
+            if (springContext != null) {
+                springContext.close();
+            }
+        } finally {
+            Factory.INSTANCE.close();
+        }
     }
 }

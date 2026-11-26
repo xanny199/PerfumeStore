@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import sk.upjs.perfumestore.config.SceneManager;
+import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.controller.MainLayoutController;
 import sk.upjs.perfumestore.exception.NotFoundException;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
@@ -18,7 +19,6 @@ import sk.upjs.perfumestore.user.UserAccount;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MyOrdersController {
@@ -103,7 +103,7 @@ public class MyOrdersController {
         dateColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().createdAt())
         );
-        setupDateColumn();
+        UIComponentConfigurator.setupDateColumn(dateColumn);
 
         statusColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().status())
@@ -112,7 +112,7 @@ public class MyOrdersController {
         totalColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().totalPrice())
         );
-        setupTotalColumn();
+        UIComponentConfigurator.setupMoneyColumn(totalColumn);
 
         setupActionColumn();
     }
@@ -122,7 +122,7 @@ public class MyOrdersController {
             allStatusesCombox.getItems().add(orderStatus.name());
         }
 
-        setupPlaceholder(allStatusesCombox);
+        UIComponentConfigurator.setupCombox(allStatusesCombox, status -> status);
     }
 
     private void applyFilter() {
@@ -146,49 +146,6 @@ public class MyOrdersController {
         allStatusesCombox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> applyFilter()
         );
-    }
-
-    private void setupPlaceholder(ComboBox<String> comboBox) {
-        comboBox.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item == null ? comboBox.getPromptText() : item);
-            }
-        });
-    }
-
-    private void setupDateColumn() {
-        DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-
-        dateColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(Timestamp date, boolean empty) {
-                super.updateItem(date, empty);
-
-                if (empty || date == null) {
-                    setText(null);
-                } else {
-                    setText(date.toLocalDateTime().format(formatter));
-                }
-            }
-        });
-    }
-
-    private void setupTotalColumn() {
-        totalColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(BigDecimal total, boolean empty) {
-                super.updateItem(total, empty);
-
-                if (empty || total == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f €", total));
-                }
-            }
-        });
     }
 
     private void setupActionColumn() {

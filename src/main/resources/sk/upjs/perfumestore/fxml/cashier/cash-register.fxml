@@ -22,7 +22,7 @@
          </children>
       </HBox>
       <Label styleClass="section-title" text="Current Sale" />
-      <TableView fx:id="saleItemsTable" minHeight="180.0" prefHeight="300.0">
+      <TableView fx:id="saleItemsTable">
          <columns>
             <TableColumn fx:id="productColumn" prefWidth="75.0" text="Product" />
             <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Qty" />

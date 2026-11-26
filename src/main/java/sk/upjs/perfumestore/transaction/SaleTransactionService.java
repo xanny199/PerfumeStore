@@ -1,5 +1,7 @@
 package sk.upjs.perfumestore.transaction;
 
+import org.springframework.transaction.annotation.Transactional;
+import sk.upjs.perfumestore.exception.BadRequestException;
 import sk.upjs.perfumestore.product.Product;
 
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ public class SaleTransactionService {
         return saleTransactionDao.findByCustomerId(userId);
     }
 
+    @Transactional
     public SaleTransaction completeInStoreSale(Long employeeId, List<Product> products, Map<Long, Integer> quantities) {
         if (employeeId == null || employeeId <= 0) {
             throw new IllegalArgumentException("Invalid employee ID");
@@ -79,5 +82,34 @@ public class SaleTransactionService {
         );
 
         return saleTransactionDao.save(sale);
+    }
+
+    public List<SaleTransaction> getAllOnlineOrders() {
+        return saleTransactionDao.findAll().stream().filter(
+                order -> order.transactionType().equals(SaleTransaction.TransactionType.ONLINE_ORDER)
+        ).toList();
+    }
+
+    @Transactional
+    public boolean changeStatusForOrder(SaleTransaction saleTransaction, SaleTransaction.OrderStatus orderStatus) {
+        if (saleTransaction == null || orderStatus == null) {
+            throw new IllegalArgumentException("Invalid saleTransaction");
+        }
+
+        if (orderStatus.equals(SaleTransaction.OrderStatus.PENDING)) {
+            return false;
+        }
+
+        if (!saleTransaction.transactionType().equals(SaleTransaction.TransactionType.ONLINE_ORDER)) {
+            throw new IllegalArgumentException("You cannot change the status if the SaleTransaction is not of type ONLINE_ORDER.");
+        }
+
+        if (!saleTransaction.status().equals(SaleTransaction.OrderStatus.PENDING)) {
+            throw new IllegalArgumentException("To change its status, a SaleTransaction must have the status PENDING.");
+        }
+
+        saleTransactionDao.changeStatus(saleTransaction.id(), orderStatus);
+        return saleTransactionDao.findById(saleTransaction.id()).status().equals(SaleTransaction.OrderStatus.COMPLETED)
+                || saleTransactionDao.findById(saleTransaction.id()).status().equals(SaleTransaction.OrderStatus.CANCELLED);
     }
 }

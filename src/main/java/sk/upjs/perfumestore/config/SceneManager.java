@@ -113,6 +113,9 @@ public class SceneManager {
             }
             if (controllerClass.equals(CashRegisterController.class)) {
                 return new CashRegisterController(productService, saleTransactionService);
+            }
+            if (controllerClass.equals(OrderManagementController.class)) {
+                return new OrderManagementController(saleTransactionService, userAccountService);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );

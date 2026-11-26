@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.product.Product;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
@@ -80,17 +81,16 @@ public class CashRegisterController  {
         availableProducts.setAll(productService.getAllAvailableProducts());
 
         productComboBox.setItems(availableProducts);
-        setupPlaceholder(productComboBox);
-        setupProductComboBox();
+        UIComponentConfigurator.setupCombox(productComboBox, Product::name);
 
         saleItemsTable.setItems(saleProducts);
-        saleItemsTable.setFixedCellSize(55);
+        saleItemsTable.setFixedCellSize(40);
 
         saleItemsTable.prefHeightProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> Math.min(
-                                450.0,
-                                Math.max(120.0, saleProducts.size() * 55.0 + 65.0)
+                                350.0,
+                                Math.max(85.0, saleProducts.size() * 40.0 + 55.0)
                         ),
                         saleProducts
                 )
@@ -113,7 +113,7 @@ public class CashRegisterController  {
         priceColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().price())
         );
-        setupMoneyColumn(priceColumn);
+        UIComponentConfigurator.setupMoneyColumn(priceColumn);
 
         itemTotalColumn.setCellValueFactory(data -> {
             Product product = data.getValue();
@@ -122,7 +122,7 @@ public class CashRegisterController  {
             BigDecimal total = product.price().multiply(BigDecimal.valueOf(count));
             return new ReadOnlyObjectWrapper<>(total);
         });
-        setupMoneyColumn(itemTotalColumn);
+        UIComponentConfigurator.setupMoneyColumn(itemTotalColumn);
     }
 
     @FXML
@@ -164,45 +164,6 @@ public class CashRegisterController  {
     @FXML
     void resetComboxButtonOnAction(ActionEvent event) {productComboBox.setValue(null);}
 
-    private void setupPlaceholder(ComboBox<Product> comboBox) {
-        comboBox.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Product item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item == null ? comboBox.getPromptText() : item.name());
-            }
-        });
-    }
-
-    private void setupProductComboBox() {
-        productComboBox.setCellFactory(comboBox -> new ListCell<>() {
-            @Override
-            protected void updateItem(Product product, boolean empty) {
-                super.updateItem(product, empty);
-
-                if (empty || product == null) {
-                    setText(null);
-                } else {
-                    setText(product.name());
-                }
-            }
-        });
-    }
-
-    private void setupMoneyColumn(TableColumn<Product, BigDecimal> column) {
-        column.setCellFactory(col -> new TableCell<>() {
-            @Override
-            protected void updateItem(BigDecimal value, boolean empty) {
-                super.updateItem(value, empty);
-
-                if (empty || value == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f €", value));
-                }
-            }
-        });
-    }
 
     private void setupQuantityColumn(TableColumn<Product, Integer> column) {
         column.setCellFactory(col -> new TableCell<>() {

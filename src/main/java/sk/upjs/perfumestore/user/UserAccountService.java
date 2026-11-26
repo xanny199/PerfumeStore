@@ -131,4 +131,12 @@ public class UserAccountService {
         userAccountDao.update(updated);
         return updated;
     }
+
+    public UserAccount getUserAccount(Long customerId) {
+        if (customerId == null || customerId <= 0) {
+            throw new IllegalArgumentException("Cashier id cannot be null or less than zero");
+        }
+
+        return userAccountDao.findById(customerId).orElseThrow();
+    }
 }

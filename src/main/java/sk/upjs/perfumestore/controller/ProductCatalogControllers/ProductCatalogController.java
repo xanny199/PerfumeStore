@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import sk.upjs.perfumestore.config.SceneManager;
+import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.product.Product;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.product.productImage.ProductImageService;
@@ -122,10 +123,10 @@ public class ProductCatalogController {
                 "Price: High to Low"
         ));
 
-        setupPlaceholder(categoryComboBox);
-        setupPlaceholder(brandComboBox);
-        setupPlaceholder(audienceComboBox);
-        setupPlaceholder(sortComboBox);
+        UIComponentConfigurator.setupCombox(categoryComboBox, categoryType -> categoryType.replace("_", " "));
+        UIComponentConfigurator.setupCombox(audienceComboBox, audienceType -> audienceType);
+        UIComponentConfigurator.setupCombox(brandComboBox, brand -> brand);
+        UIComponentConfigurator.setupCombox(sortComboBox, sort -> sort);
     }
 
 
@@ -218,15 +219,5 @@ public class ProductCatalogController {
         sortComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> applyFilters()
         );
-    }
-
-    private void setupPlaceholder(ComboBox<String> comboBox) {
-        comboBox.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(item == null ? comboBox.getPromptText() : item);
-            }
-        });
     }
 }

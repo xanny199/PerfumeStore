@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.controller.MainLayoutController;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
@@ -131,41 +132,11 @@ public class OrdersDetailsContorller {
         unitPriceColumn.setCellValueFactory(data ->
             new  ReadOnlyObjectWrapper<>(data.getValue().unitPrice())
         );
-        setupUnitPriceColumn();
+        UIComponentConfigurator.setupMoneyColumn(unitPriceColumn);
 
         subtotalColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().unitPrice().multiply(BigDecimal.valueOf(data.getValue().quantity())))
         );
-        setupSubtotalColumn();
-    }
-
-    private void setupUnitPriceColumn() {
-        unitPriceColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(BigDecimal total, boolean empty) {
-                super.updateItem(total, empty);
-
-                if (empty || total == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f €", total));
-                }
-            }
-        });
-    }
-
-    private void setupSubtotalColumn() {
-        subtotalColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(BigDecimal total, boolean empty) {
-                super.updateItem(total, empty);
-
-                if (empty || total == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("%.2f €", total));
-                }
-            }
-        });
+        UIComponentConfigurator.setupMoneyColumn(subtotalColumn);
     }
 }
