@@ -7,6 +7,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sk.upjs.perfumestore.cart.CartService;
 import sk.upjs.perfumestore.controller.*;
+import sk.upjs.perfumestore.controller.CashierControllers.CashRegisterController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
@@ -116,6 +117,10 @@ public class SceneManager {
             if(controllerClass.equals(MyOrdersController.class)) {
                 return new MyOrdersController(saleTransactionService, this, mainLayoutController);
             }
+            if (controllerClass.equals(CashRegisterController.class)) {
+                return new CashRegisterController(productService, saleTransactionService);
+            }
+
             if(controllerClass.equals(CartController.class)) {
                 return new CartController(cartService,productService,deliveryAddressService,this,currentUserAccount);
             }
@@ -127,6 +132,9 @@ public class SceneManager {
         Parent root = loader.load();
 
         if (loader.getController() instanceof MyOrdersController controller) {
+            controller.setCurrentUserAccount(currentUserAccount);
+        }
+        if (loader.getController() instanceof CashRegisterController controller) {
             controller.setCurrentUserAccount(currentUserAccount);
         }
 

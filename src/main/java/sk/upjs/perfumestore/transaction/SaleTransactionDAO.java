@@ -1,6 +1,6 @@
 package sk.upjs.perfumestore.transaction;
 
-import java.time.OffsetDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface SaleTransactionDAO {
@@ -17,9 +17,9 @@ public interface SaleTransactionDAO {
 
     List<SaleTransaction> findByStatus(SaleTransaction.OrderStatus status);
 
-    List<SaleTransaction> findByDateRange(OffsetDateTime start, OffsetDateTime end);
+    List<SaleTransaction> findByDateRange(Timestamp start, Timestamp end);
 
-    List<SaleTransaction> findByEmployeeIdAndDates(Long employeeId, OffsetDateTime start, OffsetDateTime end);
+    List<SaleTransaction> findByEmployeeIdAndDates(Long employeeId, Timestamp start, Timestamp end);
 
     boolean changeStatus(Long id, SaleTransaction.OrderStatus status);
 }

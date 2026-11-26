@@ -17,7 +17,7 @@ import sk.upjs.perfumestore.user.UserAccount;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class MyOrdersController {
     private ComboBox<String> allStatusesCombox;
 
     @FXML
-    private TableColumn<SaleTransaction, OffsetDateTime> dateColumn;
+    private TableColumn<SaleTransaction, Timestamp> dateColumn;
 
     @FXML
     private TableColumn<SaleTransaction, Long> orderIdColumn;
@@ -164,13 +164,13 @@ public class MyOrdersController {
 
         dateColumn.setCellFactory(column -> new TableCell<>() {
             @Override
-            protected void updateItem(OffsetDateTime date, boolean empty) {
+            protected void updateItem(Timestamp date, boolean empty) {
                 super.updateItem(date, empty);
 
                 if (empty || date == null) {
                     setText(null);
                 } else {
-                    setText(date.format(formatter));
+                    setText(date.toLocalDateTime().format(formatter));
                 }
             }
         });

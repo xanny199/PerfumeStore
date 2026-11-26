@@ -1,6 +1,5 @@
 package sk.upjs.perfumestore.transaction;
 
-import org.springframework.beans.factory.config.ListFactoryBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -8,8 +7,8 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.OffsetDateTime;
 import java.util.*;
 
 public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
@@ -32,7 +31,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                         rs.getObject("t_employee_id", Long.class),
                         SaleTransaction.TransactionType.valueOf(rs.getString("t_transaction_type")),
                         rs.getObject("t_delivery_address_id", Long.class),
-                        rs.getObject("t_created_at", OffsetDateTime.class),
+                        rs.getObject("t_created_at", Timestamp.class),
                         SaleTransaction.OrderStatus.valueOf(rs.getString("t_status")),
                         rs.getBigDecimal("t_total_price"),
                         items
@@ -79,9 +78,9 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
         }, keyHolder);
 
         Number key = (Number) keyHolder.getKeys().get("id");
-        OffsetDateTime createdAt = (OffsetDateTime) keyHolder.getKeys().get("created_at");
+        Timestamp createdAt = (Timestamp) keyHolder.getKeys().get("created_at");
 
-        if (saleTransaction.items() != null && !saleTransaction.items().isEmpty()) {
+        if (!saleTransaction.items().isEmpty()) {
             String sqlForItem = "INSERT INTO transaction_item(product_id,transaction_id,quantity,unit_price) VALUES(?,?,?,?)";
             List<Object[]> args = new ArrayList<>();
             for (TransactionItem item : saleTransaction.items()) {
@@ -93,8 +92,31 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                 });
             }
             jdbcTemplate.batchUpdate(sqlForItem, args);
-
         }
+
+        String stockSql = """
+        UPDATE product
+        SET current_stock = current_stock - ?
+        WHERE id = ?
+          AND current_stock >= ?
+          AND is_available = TRUE
+        """;
+
+        for (TransactionItem item : saleTransaction.items()) {
+            int updated = jdbcTemplate.update(
+                    stockSql,
+                    item.quantity(),
+                    item.productId(),
+                    item.quantity()
+            );
+
+            if (updated != 1) {
+                throw new IllegalArgumentException(
+                        "Insufficient stock for product ID: " + item.productId()
+                );
+            }
+        }
+
         return saleTransaction.withCreatedAt(createdAt).withId(key.longValue());
     }
 
@@ -232,7 +254,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
     }
 
     @Override
-    public List<SaleTransaction> findByDateRange(OffsetDateTime start, OffsetDateTime end) {
+    public List<SaleTransaction> findByDateRange(Timestamp start, Timestamp end) {
         String sql = """
                 SELECT\s
                  t.id AS t_id,
@@ -256,7 +278,7 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
     }
 
     @Override
-    public List<SaleTransaction> findByEmployeeIdAndDates(Long employeeId, OffsetDateTime start, OffsetDateTime end) {
+    public List<SaleTransaction> findByEmployeeIdAndDates(Long employeeId, Timestamp start, Timestamp end) {
         if(employeeId == null || employeeId <= 0) {
             throw new IllegalArgumentException("ID must be strictly positive");
         }

@@ -2,23 +2,23 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="18.0" styleClass="cash-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="750.0" spacing="18.0" styleClass="cash-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.CashierControllers.CashRegisterController">
    <children>
       <Label styleClass="page-title" text="Cash Register" />
       <Label styleClass="section-title" text="Find Product" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
          <children>
-            <TextField maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Search by name or brand..." styleClass="input-field" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="40.0" styleClass="primary-button" text="Add" />
+            <ComboBox fx:id="productComboBox" maxWidth="1.7976931348623157E308" prefHeight="40.0" promptText="Select product..." styleClass="combo-box" HBox.hgrow="ALWAYS" />
+            <Button fx:id="resetComboxButton" mnemonicParsing="false" onAction="#resetComboxButtonOnAction" prefHeight="40.0" styleClass="primary-button" text="Reset" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonOnAction" prefHeight="40.0" styleClass="primary-button" text="Add" />
          </children>
       </HBox>
       <Label styleClass="section-title" text="Current Sale" />
@@ -42,8 +42,8 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
-            <Button fx:id="clearSaleButton" mnemonicParsing="false" prefHeight="40.0" styleClass="secondary-button" text="Clear Sale" />
-            <Button fx:id="completeSaleButton" mnemonicParsing="false" prefHeight="40.0" styleClass="primary-button" text="Complete Sale" />
+            <Button fx:id="clearSaleButton" mnemonicParsing="false" onAction="#clearSaleButtonOnAction" prefHeight="40.0" styleClass="secondary-button" text="Clear Sale" />
+            <Button fx:id="completeSaleButton" mnemonicParsing="false" onAction="#completeSaleButtonOnAction" prefHeight="40.0" styleClass="primary-button" text="Complete Sale" />
          </children>
       </HBox>
    </children>

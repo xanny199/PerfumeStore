@@ -3,7 +3,7 @@ package sk.upjs.perfumestore.transaction;
 
 import lombok.With;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @With
@@ -13,7 +13,7 @@ public record SaleTransaction(
         Long employeeId,
         TransactionType transactionType,
         Long deliveryAddressId,
-        OffsetDateTime createdAt,
+        Timestamp createdAt,
         OrderStatus status,
         BigDecimal totalPrice,
         List<TransactionItem> items
