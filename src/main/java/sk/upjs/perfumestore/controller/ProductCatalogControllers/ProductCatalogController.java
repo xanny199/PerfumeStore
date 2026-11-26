@@ -11,6 +11,7 @@ import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.product.Product;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.product.productImage.ProductImageService;
+import sk.upjs.perfumestore.user.UserAccount;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,9 +49,12 @@ public class ProductCatalogController {
 
     private final SceneManager sceneManager;
 
-    public ProductCatalogController(ProductService productService, SceneManager sceneManager) {
+    private final UserAccount currentUserAccount;
+
+    public ProductCatalogController(ProductService productService, SceneManager sceneManager, UserAccount currentUserAccount) {
         this.productService = productService;
         this.sceneManager = sceneManager;
+        this.currentUserAccount = currentUserAccount;
     }
 
     private List<Product> availableProducts;
@@ -79,6 +83,8 @@ public class ProductCatalogController {
 
                 ProductCardController controller = loaderForProductCard.getController();
                 controller.setProduct(p);
+                controller.setCurrentUserAccount(currentUserAccount);
+
 
                 productFlowPane.getChildren().add(productCard);
             } catch (IOException e) {
@@ -164,7 +170,8 @@ public class ProductCatalogController {
 
         if (selectedAudience != null && !selectedAudience.equals("Audience")) {
             stream = stream.filter(product ->
-                    product.targetAudience().name().equals(selectedAudience)
+                    product.targetAudience() != null
+                            && product.targetAudience().name().equals(selectedAudience)
             );
         }
 

@@ -2,6 +2,8 @@ package sk.upjs.perfumestore.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import sk.upjs.perfumestore.cart.CartDAO;
+import sk.upjs.perfumestore.cart.JdbcCartDAO;
 import sk.upjs.perfumestore.product.FragranceNoteDAO;
 import sk.upjs.perfumestore.product.JdbcProductDAO;
 import sk.upjs.perfumestore.product.ProductDAO;
@@ -35,6 +37,8 @@ public enum Factory {
     private StockSupplyDAO stockSupplyDao;
 
     private SaleTransactionDAO saleTransactionDao;
+
+    private CartDAO cartDao;
 
     private final HikariDataSource dataSource = createDataSource();
 
@@ -97,5 +101,12 @@ public enum Factory {
         }
 
         return saleTransactionDao;
+    }
+
+    public CartDAO getCartDao() {
+        if (cartDao == null) {
+            cartDao = new JdbcCartDAO(getJdbcTemplate());
+        }
+        return cartDao;
     }
 }

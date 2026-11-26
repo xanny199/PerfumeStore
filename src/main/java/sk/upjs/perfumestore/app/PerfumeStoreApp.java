@@ -3,6 +3,8 @@ package sk.upjs.perfumestore.app;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import sk.upjs.perfumestore.cart.CartDAO;
+import sk.upjs.perfumestore.cart.CartService;
 import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.config.TransactionConfig;
@@ -35,12 +37,16 @@ public class PerfumeStoreApp extends Application {
         DeliveryAddressService deliveryAddressService =
                 new DeliveryAddressService(Factory.INSTANCE.getDeliveryAddressDao());
 
+        CartService cartService =
+                new CartService(Factory.INSTANCE.getCartDao());
+
         SceneManager sceneManager = new SceneManager(
                 userAccountService,
                 productService,
                 productImageService,
                 deliveryAddressService,
-                saleTransactionService
+                saleTransactionService,
+                cartService
         );
 
         sceneManager.showLogin(stage);

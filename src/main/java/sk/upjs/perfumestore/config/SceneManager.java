@@ -5,12 +5,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sk.upjs.perfumestore.cart.CartService;
 import sk.upjs.perfumestore.controller.*;
 import sk.upjs.perfumestore.controller.CashierControllers.CashRegisterController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
+import sk.upjs.perfumestore.controller.cartControllers.CartController;
+import sk.upjs.perfumestore.controller.cartControllers.CartItemController;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.product.productImage.ProductImageService;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
@@ -34,12 +37,15 @@ public class SceneManager {
 
     private final DeliveryAddressService deliveryAddressService;
 
-    public SceneManager(UserAccountService userAccountService, ProductService productService, ProductImageService productImageService, DeliveryAddressService deliveryAddressService, SaleTransactionService saleTransactionService) {
+    private final CartService cartService;
+
+    public SceneManager(UserAccountService userAccountService, ProductService productService, ProductImageService productImageService, DeliveryAddressService deliveryAddressService, SaleTransactionService saleTransactionService, CartService cartService) {
         this.userAccountService = userAccountService;
         this.productService = productService;
         this.productImageService = productImageService;
         this.deliveryAddressService = deliveryAddressService;
         this.saleTransactionService = saleTransactionService;
+        this.cartService = cartService;
     }
 
     public void showLogin(Stage stage) throws IOException {
@@ -106,7 +112,7 @@ public class SceneManager {
 
         loader.setControllerFactory(controllerClass -> {
             if(controllerClass.equals(ProductCatalogController.class)) {
-                return new ProductCatalogController(productService, this);
+                return new ProductCatalogController(productService, this, currentUserAccount);
             }
             if(controllerClass.equals(MyOrdersController.class)) {
                 return new MyOrdersController(saleTransactionService, this, mainLayoutController);
@@ -116,6 +122,9 @@ public class SceneManager {
             }
             if (controllerClass.equals(OrderManagementController.class)) {
                 return new OrderManagementController(saleTransactionService, userAccountService);
+            }
+            if(controllerClass.equals(CartController.class)) {
+                return new CartController(cartService, productService, deliveryAddressService, this, currentUserAccount);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );
@@ -176,12 +185,23 @@ public class SceneManager {
 
         loader.setControllerFactory(controllerClass -> {
             if(controllerClass.equals(ProductCardController.class)) {
-                return new ProductCardController(productImageService);
+                return new ProductCardController(productImageService,cartService);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );
         });
 
+        return loader;
+    }
+
+    public FXMLLoader loadCartItem(String path) {
+        var loader = new FXMLLoader(getClass().getResource(path));
+
+        loader.setControllerFactory(controllerClass -> {
+            if(controllerClass.equals(CartItemController.class)) {
+                return new CartItemController(cartService);
+            }throw new IllegalArgumentException("Unknown controller: " + controllerClass.getName());
+        });
         return loader;
     }
 

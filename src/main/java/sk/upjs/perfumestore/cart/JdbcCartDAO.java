@@ -110,6 +110,42 @@ public class JdbcCartDAO implements CartDAO {
     }
 
     @Override
+    public void updateQuantity(Long cartId, Long productId, Integer quantity) {
+        if (cartId == null || cartId <= 0) {
+            throw new IllegalArgumentException("Cart id must by strictly positive");
+        }
+        if (productId == null || productId <= 0) {
+            throw new IllegalArgumentException("Product id must by strictly positive");
+        }
+        if (quantity == null || quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must by strictly positive");
+        }
+
+        String sql = """
+                UPDATE cart_item
+                 SET quantity = ?
+                 WHERE cart_id = ?
+                    AND product_id = ?;
+                """;
+        jdbcTemplate.update(sql, quantity, cartId, productId);
+    }
+
+    @Override
+    public void deleteItem(Long cartId, Long productId) {
+        if (cartId == null || cartId <= 0) {
+            throw new IllegalArgumentException("Cart id must by strictly positive");
+        }
+        if (productId == null || productId <= 0) {
+            throw new IllegalArgumentException("Product id must by strictly positive");
+        }
+
+        String sql = """
+                DELETE FROM cart_item WHERE cart_id = ? AND product_id = ?;
+                """;
+        jdbcTemplate.update(sql, cartId, productId);
+    }
+
+    @Override
     public void removeItem(Long cartId, Long productId) {
         if (cartId == null || cartId <= 0) {
             throw new IllegalArgumentException("Cart id must by strictly positive");

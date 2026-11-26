@@ -19,12 +19,13 @@ public class JdbcProductDAO implements ProductDAO {
             Long productId = rs.getLong("product_id");
             if (!map.containsKey(productId)) {
                 List<FragranceNote> notes = new ArrayList<>();
+                String targetAudience = rs.getString("target_audience");
                 Product product = new Product(
                         rs.getLong("product_id"),
                         rs.getString("product_name"),
                         rs.getString("brand"),
                         Product.CategoryType.valueOf(rs.getString("category_type")),
-                        Product.TargetAudience.valueOf(rs.getString("target_audience")),
+                        targetAudience == null ? null : Product.TargetAudience.valueOf(targetAudience),
                         rs.getString("description"),
                         rs.getInt("volume_ml"),
                         rs.getBigDecimal("price"),
@@ -111,14 +112,14 @@ public class JdbcProductDAO implements ProductDAO {
             throw new NullPointerException("New product cannot already have an ID");
         }
 
-        String sql = "INSERT INTO product(name,brand,category_type,target_audience,description,volume_ml,price,release_year,current_stock,is_available) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO product(name,brand,category_type,target_audience,description,volume_ml,price,release_year,current_stock,is_available) VALUES (?,?,CAST(? AS category_type),CAST(? AS target_audience),?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, product.name());
             ps.setString(2, product.brand());
             ps.setString(3, product.categoryType().name());
-            ps.setString(4, product.targetAudience().name());
+            ps.setString(4, product.targetAudience() == null ? null : product.targetAudience().name());
             ps.setString(5, product.description());
             ps.setInt(6, product.volumeML());
             ps.setBigDecimal(7, product.price());

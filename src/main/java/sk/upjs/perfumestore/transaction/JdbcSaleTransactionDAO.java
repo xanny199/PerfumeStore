@@ -247,10 +247,10 @@ public class JdbcSaleTransactionDAO implements SaleTransactionDAO {
                  i.unit_price AS i_unit_price
                  FROM sale_transaction t
                  LEFT JOIN transaction_item i ON t.id = i.transaction_id
-                 WHERE t.status = ?
+                 WHERE t.status = ?::order_status
                  ORDER BY t.created_at DESC, t.id
                \s""";
-        return jdbcTemplate.query(sql, extractor, status);
+        return jdbcTemplate.query(sql, extractor, status.name());
     }
 
     @Override

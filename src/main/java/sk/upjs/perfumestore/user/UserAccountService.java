@@ -1,7 +1,9 @@
 package sk.upjs.perfumestore.user;
 
+import sk.upjs.perfumestore.config.Factory;
 import sk.upjs.perfumestore.exception.BadRequestException;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import de.mkammerer.argon2.Argon2;
@@ -27,7 +29,7 @@ public class UserAccountService {
             throw new IllegalArgumentException("Email or password is blank");
         }
 
-        String cleanUserAccountEmail = userAccountEmail.trim();
+        String cleanUserAccountEmail = userAccountEmail.trim().toLowerCase();
 
         Optional<UserAccount> userAccountOptional = userAccountDao.findByEmail(cleanUserAccountEmail);
 
@@ -58,18 +60,18 @@ public class UserAccountService {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Email cannot be empty");
         }
-        if (phone == null || phone.isBlank()) {
-            phone = null;
-        }
+        String cleanEmail = email.trim().toLowerCase();
+        String cleanPhone = (phone == null || phone.isBlank()) ? null : phone.trim();
+
         if (password == null || password.length() < 8) {
             throw new BadRequestException("Password must be at least 8 characters long");
         }
-        if (userAccountDao.existsByEmail(email)) {
+        if (userAccountDao.existsByEmail(cleanEmail)) {
             throw new BadRequestException("User with this email already exists");
         }
         String passwordHash = argon2.hash(10, 65536, 1, password.toCharArray());
 
-        UserAccount newUser = new UserAccount(null, email.trim(), passwordHash, firstName.trim(), lastName.trim(), phone, UserAccount.Role.CLIENT, true);
+        UserAccount newUser = new UserAccount(null, cleanEmail, passwordHash, firstName.trim(), lastName.trim(), cleanPhone, UserAccount.Role.CLIENT, true);
 
         return userAccountDao.create(newUser);
     }
@@ -80,17 +82,16 @@ public class UserAccountService {
         }
 
         if (firstName == null || firstName.isBlank()
-                || lastName == null || lastName.isBlank()
-                || phone == null || phone.isBlank()) {
-            throw new BadRequestException("First name, last name and phone cannot be empty");
+                || lastName == null || lastName.isBlank()) {
+            throw new BadRequestException("First name and last name cannot be empty");
         }
         String cleanFirstName = firstName.trim();
         String cleanLastName = lastName.trim();
-        String cleanPhone = phone.trim();
+        String cleanPhone = (phone == null || phone.isBlank()) ? null : phone.trim();
 
         boolean isProfileChanged = !cleanFirstName.equals(currentUser.firstName())
                 || !cleanLastName.equals(currentUser.lastName())
-                || !cleanPhone.equals(currentUser.phone());
+                || !Objects.equals(cleanPhone, currentUser.phone());
 
         boolean isPasswordChangeRequested = (newPassword != null && !newPassword.isBlank())
                 || (confirmPassword != null && !confirmPassword.isBlank());
