@@ -27,4 +27,12 @@ public class ProductService {
         }
         return productDAO.findById(id).orElseThrow().name();
     }
+
+
+    public Product getProductById(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Product id must be greater than zero");
+        }
+        return productDAO.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+    }
 }

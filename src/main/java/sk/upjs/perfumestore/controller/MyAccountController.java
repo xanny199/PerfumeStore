@@ -190,6 +190,7 @@ public class MyAccountController {
         DeliveryAddress selectedAddress = addressComboBox.getValue();
         if (selectedAddress == null) {
             showAlert(Alert.AlertType.WARNING, "No Address Selected", "Please select an address to delete");
+            return;
         }
         try{
             deliveryAddressService.deleteAddress(selectedAddress);

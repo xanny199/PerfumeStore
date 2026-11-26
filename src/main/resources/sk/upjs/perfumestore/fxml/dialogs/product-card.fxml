@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
 <VBox maxHeight="-Infinity" maxWidth="230.0" minWidth="230.0" prefWidth="100.0" spacing="10.0" styleClass="product-card" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController">
    <children>
       <StackPane maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="product-image-container">
@@ -44,10 +46,15 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <Button fx:id="addToCartButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="38.0" styleClass="primary-button" text="Add to cart">
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
                <VBox.margin>
                   <Insets top="5.0" />
-               </VBox.margin></Button>
+               </VBox.margin>
+               <children>
+                  <Button fx:id="addToCartButton" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" onAction="#addToCartAction" mnemonicParsing="false" prefHeight="38.0" minHeight="38.0" styleClass="primary-button" text="Add to cart" />
+                  <Spinner fx:id="quantitySpinner" editable="true" prefWidth="96.0" minWidth="96.0" prefHeight="38.0" minHeight="38.0" styleClass="quantity-spinner" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

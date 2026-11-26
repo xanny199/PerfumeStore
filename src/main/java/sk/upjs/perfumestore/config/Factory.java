@@ -2,6 +2,8 @@ package sk.upjs.perfumestore.config;
 
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import sk.upjs.perfumestore.cart.CartDAO;
+import sk.upjs.perfumestore.cart.JdbcCartDAO;
 import sk.upjs.perfumestore.product.FragranceNoteDAO;
 import sk.upjs.perfumestore.product.JdbcProductDAO;
 import sk.upjs.perfumestore.product.ProductDAO;
@@ -10,15 +12,12 @@ import sk.upjs.perfumestore.product.productImage.ProductImageDAO;
 import sk.upjs.perfumestore.supply.PriceHistoryDAO;
 import sk.upjs.perfumestore.supply.StockSupplyDAO;
 import sk.upjs.perfumestore.transaction.JdbcSaleTransactionDAO;
-import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionDAO;
 import sk.upjs.perfumestore.user.DeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcDeliveryAddressDAO;
 import sk.upjs.perfumestore.user.JdbcUserAccountDAO;
 import sk.upjs.perfumestore.user.UserAccountDAO;
 
-import java.time.OffsetDateTime;
-import java.util.List;
 
 public enum Factory {
     INSTANCE;
@@ -38,6 +37,8 @@ public enum Factory {
     private StockSupplyDAO stockSupplyDao;
 
     private SaleTransactionDAO saleTransactionDao;
+
+    private CartDAO cartDao;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -89,5 +90,12 @@ public enum Factory {
         }
 
         return saleTransactionDao;
+    }
+
+    public CartDAO getCartDao() {
+        if (cartDao == null) {
+            cartDao = new JdbcCartDAO(getJdbcTemplate());
+        }
+        return cartDao;
     }
 }
