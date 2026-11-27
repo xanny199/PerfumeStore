@@ -79,7 +79,6 @@ public class MainLayoutController {
                 setButtonVisibility(cartButton, false);
                 setButtonVisibility(myOrdersButton, false);
                 setButtonVisibility(manageProductsButton, false);
-                setButtonVisibility(statisticsButton, false);
                 setButtonVisibility(stockButton, false);
                 break;
             case MANAGER:
@@ -113,7 +112,7 @@ public class MainLayoutController {
 
     @FXML
     void ordersButtonOnAction(ActionEvent event) {
-        loadContentPage("/sk/upjs/perfumestore/fxml/cashier/order-managment.fxml");
+        showOrderManagement();
     }
 
     @FXML
@@ -123,7 +122,11 @@ public class MainLayoutController {
 
     @FXML
     void statisticsButtonOnAction(ActionEvent event) {
-        loadContentPage("/sk/upjs/perfumestore/fxml/manager/statistics.fxml");
+        if (currentUserAccount.role() == UserAccount.Role.CASHIER) {
+            loadContentPage("/sk/upjs/perfumestore/fxml/cashier/sales-history.fxml");
+        } else if (currentUserAccount.role() == UserAccount.Role.MANAGER) {
+            loadContentPage("/sk/upjs/perfumestore/fxml/manager/statistics.fxml");
+        }
     }
 
     @FXML
@@ -173,6 +176,8 @@ public class MainLayoutController {
     public void showMyOrders() {
         loadContentPage("/sk/upjs/perfumestore/fxml/client/my-orders.fxml");
     }
+
+    public void showOrderManagement() { loadContentPage("/sk/upjs/perfumestore/fxml/cashier/order-managment.fxml"); }
 
     private void loadDefaultPage() {
         switch (currentUserAccount.role()) {

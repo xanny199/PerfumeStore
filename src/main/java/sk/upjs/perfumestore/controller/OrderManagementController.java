@@ -6,11 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.config.UIComponentConfigurator;
+import sk.upjs.perfumestore.exception.NotFoundException;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
+import sk.upjs.perfumestore.user.UserAccount;
 import sk.upjs.perfumestore.user.UserAccountService;
 
 import java.math.BigDecimal;
@@ -44,6 +48,9 @@ public class OrderManagementController {
     private TableColumn<SaleTransaction, SaleTransaction.OrderStatus> statusColumn;
 
     @FXML
+    private TableColumn<SaleTransaction, Void> actionColumn;
+
+    @FXML
     private TableColumn<SaleTransaction, BigDecimal> totalColumn;
 
     @FXML
@@ -63,12 +70,21 @@ public class OrderManagementController {
 
     private final SaleTransactionService saleTransactionService;
     private final UserAccountService userAccountService;
+    private final SceneManager sceneManager;
+    private final MainLayoutController mainLayoutController;
+    private UserAccount currentCashier;
 
     private SaleTransaction selectedOrder;
 
-    public OrderManagementController(SaleTransactionService saleTransactionService, UserAccountService userAccountService) {
+    public OrderManagementController(SaleTransactionService saleTransactionService, UserAccountService userAccountService, SceneManager sceneManager, MainLayoutController mainLayoutController) {
         this.saleTransactionService = saleTransactionService;
         this.userAccountService = userAccountService;
+        this.sceneManager = sceneManager;
+        this.mainLayoutController = mainLayoutController;
+    }
+
+    public void setCurrentCashier(UserAccount currentCashier) {
+        this.currentCashier = currentCashier;
     }
 
     @FXML
@@ -148,6 +164,8 @@ public class OrderManagementController {
         statusColumn.setCellValueFactory(data ->
             new ReadOnlyObjectWrapper<>(data.getValue().status())
         );
+
+        setupActionColumn();
 
         totalColumn.setCellValueFactory(data ->
                 new ReadOnlyObjectWrapper<>(data.getValue().totalPrice())
@@ -229,6 +247,35 @@ public class OrderManagementController {
         }  else {
             showAlert("Error", "Order Status was not changed");
         }
+    }
+
+    private void setupActionColumn() {
+        actionColumn.setCellFactory(column -> new TableCell<>() {
+
+            private final Button detailsButton = new Button("Details");
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(detailsButton);
+
+                    detailsButton.getStyleClass().add("secondary-button");
+                    detailsButton.setOnAction(event -> {
+                        SaleTransaction selectedOrder = getTableRow().getItem();
+                        try {
+                            Parent root = sceneManager.showOrderDetails(selectedOrder, mainLayoutController, currentCashier);
+                            mainLayoutController.showContent(root);
+                        } catch (Exception e) {
+                            throw new NotFoundException("Error" + e.getMessage());
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void showAlert(String header, String message) {

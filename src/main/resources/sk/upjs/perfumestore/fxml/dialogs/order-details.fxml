@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxWidth="Infinity" spacing="18" styleClass="orders-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller">
+<VBox maxWidth="Infinity" spacing="18" styleClass="orders-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.OrdersDetailsContorller">
 
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />

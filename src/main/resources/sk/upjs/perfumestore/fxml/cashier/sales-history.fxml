@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0" spacing="18.0" styleClass="sales-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="18.0" styleClass="sales-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label styleClass="page-title" text="Sales History" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
@@ -19,11 +18,10 @@
             <ComboBox fx:id="dateFilterComboBox" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" promptText="All dates" styleClass="filter-combo" />
          </children>
       </HBox>
-      <TableView fx:id="salesTable" maxWidth="1.7976931348623157E308" minHeight="180.0" minWidth="0.0" prefHeight="350.0" VBox.vgrow="NEVER">
+      <TableView fx:id="salesTable" maxWidth="1.7976931348623157E308" minWidth="0.0" VBox.vgrow="NEVER">
         <columns>
           <TableColumn fx:id="saleIdColumn" prefWidth="75.0" text="Sale ID" />
           <TableColumn fx:id="saleDateColumn" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="cashierColumn" prefWidth="75.0" text="Cashier" />
             <TableColumn fx:id="detailsColumn" prefWidth="75.0" text="Details" />
             <TableColumn fx:id="saleTotalColumn" prefWidth="75.0" text="Total" />
         </columns>

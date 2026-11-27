@@ -165,10 +165,10 @@ public class MyOrdersController {
                     detailsButton.setOnAction(event -> {
                         SaleTransaction order = getTableRow().getItem();
                         try {
-                            Parent root = sceneManager.showOrderDetails(order, mainLayoutController);
+                            Parent root = sceneManager.showOrderDetails(order, mainLayoutController, currentUserAccount);
                             mainLayoutController.showContent(root);
                         } catch (IOException e) {
-                            throw new NotFoundException("");
+                            throw new NotFoundException("Error" + e.getMessage());
                         }
                     });
                 }

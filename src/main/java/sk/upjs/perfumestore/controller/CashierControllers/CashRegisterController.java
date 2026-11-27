@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.product.Product;
 import sk.upjs.perfumestore.product.ProductService;
+import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
 import sk.upjs.perfumestore.user.UserAccount;
 
@@ -42,6 +43,9 @@ public class CashRegisterController  {
     private TableColumn<Product, Integer> quantityColumn;
 
     @FXML
+    private TableColumn<Product, Void> actionColumn;
+
+    @FXML
     private TableView<Product> saleItemsTable;
 
     @FXML
@@ -52,6 +56,7 @@ public class CashRegisterController  {
 
     @FXML
     private Label totalAmountLabel;
+
 
     private final ProductService productService;
 
@@ -123,6 +128,8 @@ public class CashRegisterController  {
             return new ReadOnlyObjectWrapper<>(total);
         });
         UIComponentConfigurator.setupMoneyColumn(itemTotalColumn);
+
+        setupActionColumn(actionColumn);
     }
 
     @FXML
@@ -158,7 +165,17 @@ public class CashRegisterController  {
             return;
         }
 
-        saleTransactionService.completeInStoreSale(currentUserAccount.id(), saleProducts, quantities);
+        try {
+            saleTransactionService.completeInStoreSale(currentUserAccount.id(), saleProducts, quantities);
+            saleProducts.clear();
+            quantities.clear();
+            productComboBox.setValue(null);
+            updateTotalAmount();
+
+            showAlert("Success", "Sale completed successfully!");
+        } catch (Exception e) {
+            showAlert("Error", e.getMessage());
+        }
     }
 
     @FXML
@@ -190,14 +207,48 @@ public class CashRegisterController  {
         });
     }
 
+    private void setupActionColumn(TableColumn<Product, Void> column) {
+        column.setCellFactory(col -> new TableCell<>() {
+
+            private final Button removeButton = new Button("Remove");
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(removeButton);
+
+                    removeButton.getStyleClass().add("secondary-button");
+                    removeButton.setOnAction(event -> {
+                        Product selectedProduct = getTableRow().getItem();
+                        if (selectedProduct != null) {
+                            saleProducts.remove(selectedProduct);
+                            quantities.remove(selectedProduct.id());
+                            updateTotalAmount();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     private void saveQuantity(TableCell<Product, Integer> cell, TextField quantityField) {
         Product product = cell.getTableRow().getItem();
         if (product == null) return;
 
         try {
             int quantity = Integer.parseInt(quantityField.getText().trim());
-            if (quantity <= 0) showAlert("Error", "Please enter a quantity greater than 0");
-            if (!productService.isAvaliableCountForCurrentStock(product, quantity)) return;
+            if (quantity <= 0) {
+                showAlert("Error", "Please enter a quantity greater than 0");
+                quantityField.setText(String.valueOf(quantities.get(product.id())));
+                return;
+            }
+            if (!productService.isAvaliableCountForCurrentStock(product, quantity)) {
+                quantityField.setText(String.valueOf(quantities.get(product.id())));
+                return;
+            }
             quantities.put(product.id(), quantity);
 
             saleItemsTable.refresh();
@@ -208,7 +259,7 @@ public class CashRegisterController  {
     }
 
     private void showAlert(String header, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(header.equals("Error") ? Alert.AlertType.ERROR : Alert.AlertType.INFORMATION);
         alert.setTitle("PerfumeStore");
         alert.setHeaderText(header);
         alert.setContentText(message);

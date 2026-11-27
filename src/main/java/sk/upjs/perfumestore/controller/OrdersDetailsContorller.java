@@ -1,4 +1,4 @@
-package sk.upjs.perfumestore.controller.MyOrdersControllers;
+package sk.upjs.perfumestore.controller;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -8,10 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sk.upjs.perfumestore.config.UIComponentConfigurator;
-import sk.upjs.perfumestore.controller.MainLayoutController;
 import sk.upjs.perfumestore.product.ProductService;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.TransactionItem;
+import sk.upjs.perfumestore.user.UserAccount;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
@@ -57,6 +57,8 @@ public class OrdersDetailsContorller {
 
     private MainLayoutController mainLayoutController;
 
+    private UserAccount currentUser;
+
     private final ProductService productService;
 
     private final ObservableList<TransactionItem> orderItems = FXCollections.observableArrayList();
@@ -97,6 +99,10 @@ public class OrdersDetailsContorller {
         this.mainLayoutController = mainLayoutController;
     }
 
+    public void setCurrentUser(UserAccount userAccount) {
+        this.currentUser = userAccount;
+    }
+
     @FXML
     public void initialize() {
         orderItemsTable.setItems(orderItems);
@@ -117,7 +123,11 @@ public class OrdersDetailsContorller {
 
     @FXML
     void backButtonOnAction(ActionEvent event) {
-        mainLayoutController.showMyOrders();
+        if (currentUser.role() == UserAccount.Role.CLIENT) {
+            mainLayoutController.showMyOrders();
+        } else if (currentUser.role() == UserAccount.Role.CASHIER) {
+            mainLayoutController.showOrderManagement();
+        }
     }
 
     private void initializeTableItems() {

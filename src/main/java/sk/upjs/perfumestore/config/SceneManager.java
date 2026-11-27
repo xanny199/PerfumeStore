@@ -11,7 +11,7 @@ import sk.upjs.perfumestore.controller.CashierControllers.CashRegisterController
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCardController;
 import sk.upjs.perfumestore.controller.ProductCatalogControllers.ProductCatalogController;
 import sk.upjs.perfumestore.controller.MyOrdersControllers.MyOrdersController;
-import sk.upjs.perfumestore.controller.MyOrdersControllers.OrdersDetailsContorller;
+import sk.upjs.perfumestore.controller.OrdersDetailsContorller;
 import sk.upjs.perfumestore.controller.cartControllers.CartController;
 import sk.upjs.perfumestore.controller.cartControllers.CartItemController;
 import sk.upjs.perfumestore.product.ProductService;
@@ -121,7 +121,7 @@ public class SceneManager {
                 return new CashRegisterController(productService, saleTransactionService);
             }
             if (controllerClass.equals(OrderManagementController.class)) {
-                return new OrderManagementController(saleTransactionService, userAccountService);
+                return new OrderManagementController(saleTransactionService, userAccountService, this, mainLayoutController);
             }
             if(controllerClass.equals(CartController.class)) {
                 return new CartController(cartService, productService, deliveryAddressService, this, currentUserAccount);
@@ -137,6 +137,9 @@ public class SceneManager {
         }
         if (loader.getController() instanceof CashRegisterController controller) {
             controller.setCurrentUserAccount(currentUserAccount);
+        }
+        if (loader.getController() instanceof OrderManagementController controller) {
+            controller.setCurrentCashier(currentUserAccount);
         }
 
         return root;
@@ -205,7 +208,7 @@ public class SceneManager {
         return loader;
     }
 
-    public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController) throws IOException {
+    public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController, UserAccount userAccount) throws IOException {
         var loaderForOrderDetails = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/dialogs/order-details.fxml"));
 
         loaderForOrderDetails.setControllerFactory(controllerClass -> {
@@ -221,6 +224,7 @@ public class SceneManager {
         OrdersDetailsContorller controller = loaderForOrderDetails.getController();
         controller.setCurrentSaleTransaction(saleTransaction);
         controller.setMainLayoutController(mainLayoutController);
+        controller.setCurrentUser(userAccount);
 
         return root;
     }

@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS "delivery_address" (
                                                   "street" VARCHAR(255) NOT NULL,
                                                   "city" VARCHAR(100) NOT NULL,
                                                   "postal_code" VARCHAR(20) NOT NULL,
-                                                  "country" VARCHAR(10) NOT NULL,
+                                                  "country" VARCHAR(100) NOT NULL,
                                                   PRIMARY KEY ("id"),
                                                   CONSTRAINT chk_address_street CHECK (BTRIM("street") <> ''),
                                                   CONSTRAINT chk_address_city CHECK (BTRIM("city") <> ''),
