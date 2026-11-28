@@ -123,7 +123,7 @@ public class MainLayoutController {
     @FXML
     void statisticsButtonOnAction(ActionEvent event) {
         if (currentUserAccount.role() == UserAccount.Role.CASHIER) {
-            loadContentPage("/sk/upjs/perfumestore/fxml/cashier/sales-history.fxml");
+            showSalesHistory();
         } else if (currentUserAccount.role() == UserAccount.Role.MANAGER) {
             loadContentPage("/sk/upjs/perfumestore/fxml/manager/statistics.fxml");
         }
@@ -178,6 +178,8 @@ public class MainLayoutController {
     }
 
     public void showOrderManagement() { loadContentPage("/sk/upjs/perfumestore/fxml/cashier/order-managment.fxml"); }
+
+    public void showSalesHistory() {loadContentPage("/sk/upjs/perfumestore/fxml/cashier/sales-history.fxml");}
 
     private void loadDefaultPage() {
         switch (currentUserAccount.role()) {

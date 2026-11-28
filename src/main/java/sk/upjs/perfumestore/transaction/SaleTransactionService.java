@@ -1,8 +1,10 @@
 package sk.upjs.perfumestore.transaction;
 
 import org.springframework.transaction.annotation.Transactional;
-import sk.upjs.perfumestore.exception.BadRequestException;
+import sk.upjs.perfumestore.exception.NotFoundException;
 import sk.upjs.perfumestore.product.Product;
+import sk.upjs.perfumestore.user.UserAccount;
+import sk.upjs.perfumestore.user.UserAccountDAO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,9 +14,11 @@ import java.util.Map;
 public class SaleTransactionService {
 
     private final SaleTransactionDAO saleTransactionDao;
+    private final UserAccountDAO userAccountDao;
 
-    public SaleTransactionService(SaleTransactionDAO saleTransactionDao) {
+    public SaleTransactionService(SaleTransactionDAO saleTransactionDao, UserAccountDAO userAccountDao) {
         this.saleTransactionDao = saleTransactionDao;
+        this.userAccountDao = userAccountDao;
     }
 
     public List<SaleTransaction> getUserOrders(Long userId) {
@@ -111,5 +115,28 @@ public class SaleTransactionService {
         saleTransactionDao.changeStatus(saleTransaction.id(), orderStatus);
         return saleTransactionDao.findById(saleTransaction.id()).status().equals(SaleTransaction.OrderStatus.COMPLETED)
                 || saleTransactionDao.findById(saleTransaction.id()).status().equals(SaleTransaction.OrderStatus.CANCELLED);
+    }
+
+    public List<SaleTransaction> getAllCompletedOrdersForCashier(Long id) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Invalid cashier id");
+        }
+
+        if (saleTransactionDao.findByEmployeeId(id) == null) {
+            throw new NotFoundException("There is no order with this id");
+        }
+
+        if (!userAccountDao.findById(id).orElseThrow().isActive()) {
+            throw new NotFoundException("There is no active user account with this id");
+        }
+
+        if (userAccountDao.findById(id).orElseThrow().role() != UserAccount.Role.CASHIER) {
+            throw new IllegalArgumentException("The account must belong to the cashier.");
+        }
+
+        return saleTransactionDao.findByEmployeeId(id).stream()
+                .filter(order -> order.status().equals(SaleTransaction.OrderStatus.COMPLETED)
+                        && order.transactionType().equals(SaleTransaction.TransactionType.IN_STORE_SALE))
+                .toList();
     }
 }

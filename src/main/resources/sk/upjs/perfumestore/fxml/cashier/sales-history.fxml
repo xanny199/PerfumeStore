@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,13 +10,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="18.0" styleClass="sales-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0" spacing="18.0" styleClass="sales-root" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.upjs.perfumestore.controller.SalesHistoryController">
    <children>
       <Label styleClass="page-title" text="Sales History" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="10.0">
          <children>
             <TextField fx:id="saleSearchField" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="40.0" promptText="Search sale ID..." styleClass="input-field" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="dateFilterComboBox" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" promptText="All dates" styleClass="filter-combo" />
+            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonOnAction" prefHeight="40.0" styleClass="primary-button" text="Reset" />
          </children>
       </HBox>
       <TableView fx:id="salesTable" maxWidth="1.7976931348623157E308" minWidth="0.0" VBox.vgrow="NEVER">

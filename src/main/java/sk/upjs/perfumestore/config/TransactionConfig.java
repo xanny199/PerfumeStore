@@ -18,6 +18,6 @@ public class TransactionConfig {
 
     @Bean
     public SaleTransactionService saleTransactionService() {
-        return new SaleTransactionService(Factory.INSTANCE.getSaleTransactionDao());
+        return new SaleTransactionService(Factory.INSTANCE.getSaleTransactionDao(), Factory.INSTANCE.getUserAccountDao());
     }
 }

@@ -57,13 +57,19 @@ public class OrdersDetailsContorller {
 
     private MainLayoutController mainLayoutController;
 
-    private UserAccount currentUser;
-
     private final ProductService productService;
 
     private final ObservableList<TransactionItem> orderItems = FXCollections.observableArrayList();
 
     private final Map<Long, String> productNames = new HashMap<>();
+
+    public enum PreviousPage {
+        MY_ORDERS,
+        ORDER_MANAGEMENT,
+        SALES_HISTORY
+    }
+
+    private PreviousPage previousPage;
 
     public OrdersDetailsContorller(ProductService productService) {
         this.productService = productService;
@@ -99,8 +105,8 @@ public class OrdersDetailsContorller {
         this.mainLayoutController = mainLayoutController;
     }
 
-    public void setCurrentUser(UserAccount userAccount) {
-        this.currentUser = userAccount;
+    public void setPreviousPage(PreviousPage previousPage) {
+        this.previousPage = previousPage;
     }
 
     @FXML
@@ -119,14 +125,24 @@ public class OrdersDetailsContorller {
         );
 
         initializeTableItems();
+
+        if (previousPage == PreviousPage.MY_ORDERS) {
+            backButton.setText("Back to orders");
+        } else if (previousPage == PreviousPage.ORDER_MANAGEMENT) {
+            backButton.setText("Back to order management");
+        } else if (previousPage == PreviousPage.SALES_HISTORY) {
+            backButton.setText("Back to sale history");
+        }
     }
 
     @FXML
     void backButtonOnAction(ActionEvent event) {
-        if (currentUser.role() == UserAccount.Role.CLIENT) {
+        if (previousPage == PreviousPage.MY_ORDERS) {
             mainLayoutController.showMyOrders();
-        } else if (currentUser.role() == UserAccount.Role.CASHIER) {
+        } else if (previousPage == PreviousPage.ORDER_MANAGEMENT) {
             mainLayoutController.showOrderManagement();
+        } else if (previousPage == PreviousPage.SALES_HISTORY) {
+            mainLayoutController.showSalesHistory();
         }
     }
 

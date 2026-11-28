@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import sk.upjs.perfumestore.config.SceneManager;
 import sk.upjs.perfumestore.config.UIComponentConfigurator;
 import sk.upjs.perfumestore.controller.MainLayoutController;
+import sk.upjs.perfumestore.controller.OrdersDetailsContorller;
 import sk.upjs.perfumestore.exception.NotFoundException;
 import sk.upjs.perfumestore.transaction.SaleTransaction;
 import sk.upjs.perfumestore.transaction.SaleTransactionService;
@@ -165,7 +166,7 @@ public class MyOrdersController {
                     detailsButton.setOnAction(event -> {
                         SaleTransaction order = getTableRow().getItem();
                         try {
-                            Parent root = sceneManager.showOrderDetails(order, mainLayoutController, currentUserAccount);
+                            Parent root = sceneManager.showOrderDetails(order, mainLayoutController, OrdersDetailsContorller.PreviousPage.MY_ORDERS);
                             mainLayoutController.showContent(root);
                         } catch (IOException e) {
                             throw new NotFoundException("Error" + e.getMessage());

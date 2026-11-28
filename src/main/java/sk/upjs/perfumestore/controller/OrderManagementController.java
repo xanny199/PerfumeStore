@@ -72,7 +72,6 @@ public class OrderManagementController {
     private final UserAccountService userAccountService;
     private final SceneManager sceneManager;
     private final MainLayoutController mainLayoutController;
-    private UserAccount currentCashier;
 
     private SaleTransaction selectedOrder;
 
@@ -81,10 +80,6 @@ public class OrderManagementController {
         this.userAccountService = userAccountService;
         this.sceneManager = sceneManager;
         this.mainLayoutController = mainLayoutController;
-    }
-
-    public void setCurrentCashier(UserAccount currentCashier) {
-        this.currentCashier = currentCashier;
     }
 
     @FXML
@@ -267,7 +262,7 @@ public class OrderManagementController {
                     detailsButton.setOnAction(event -> {
                         SaleTransaction selectedOrder = getTableRow().getItem();
                         try {
-                            Parent root = sceneManager.showOrderDetails(selectedOrder, mainLayoutController, currentCashier);
+                            Parent root = sceneManager.showOrderDetails(selectedOrder, mainLayoutController, OrdersDetailsContorller.PreviousPage.ORDER_MANAGEMENT);
                             mainLayoutController.showContent(root);
                         } catch (Exception e) {
                             throw new NotFoundException("Error" + e.getMessage());

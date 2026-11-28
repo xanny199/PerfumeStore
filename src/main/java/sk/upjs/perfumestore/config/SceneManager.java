@@ -125,6 +125,9 @@ public class SceneManager {
             }
             if(controllerClass.equals(CartController.class)) {
                 return new CartController(cartService, productService, deliveryAddressService, this, currentUserAccount);
+            }
+            if (controllerClass.equals(SalesHistoryController.class)) {
+                return new SalesHistoryController(saleTransactionService, this, mainLayoutController);
             } throw new IllegalArgumentException(
                     "Unknown controller: " + controllerClass.getName()
             );
@@ -138,7 +141,7 @@ public class SceneManager {
         if (loader.getController() instanceof CashRegisterController controller) {
             controller.setCurrentUserAccount(currentUserAccount);
         }
-        if (loader.getController() instanceof OrderManagementController controller) {
+        if (loader.getController() instanceof SalesHistoryController controller) {
             controller.setCurrentCashier(currentUserAccount);
         }
 
@@ -208,7 +211,7 @@ public class SceneManager {
         return loader;
     }
 
-    public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController, UserAccount userAccount) throws IOException {
+    public Parent showOrderDetails(SaleTransaction saleTransaction, MainLayoutController mainLayoutController, OrdersDetailsContorller.PreviousPage previousPage) throws IOException {
         var loaderForOrderDetails = new FXMLLoader(getClass().getResource("/sk/upjs/perfumestore/fxml/dialogs/order-details.fxml"));
 
         loaderForOrderDetails.setControllerFactory(controllerClass -> {
@@ -224,7 +227,7 @@ public class SceneManager {
         OrdersDetailsContorller controller = loaderForOrderDetails.getController();
         controller.setCurrentSaleTransaction(saleTransaction);
         controller.setMainLayoutController(mainLayoutController);
-        controller.setCurrentUser(userAccount);
+        controller.setPreviousPage(previousPage);
 
         return root;
     }

@@ -57,8 +57,8 @@ public enum Factory {
         var pool = new HikariDataSource();
 
         pool.setJdbcUrl(System.getProperty("DB_URL", "jdbc:postgresql://localhost:5433/perfumestore"));
-        pool.setUsername(System.getProperty("DB_USER", "perfumestore"));
-        pool.setPassword(System.getProperty("DB_PASSWORD", "secretPassword"));
+        pool.setUsername(System.getProperty("DB_USER", "postgres"));
+        pool.setPassword(System.getProperty("DB_PASSWORD", "secretpassword"));
 
         return pool;
     }
